@@ -10,4 +10,6 @@ Le premier du classement gagne le droit de ne pas seek de toute la semaine. Les 
 
 ### Numéro de version du site web ###
 
-1.0.0
+1.0.0 : 
+- Page d'accueil récapitulant l'ensemble des règles
+- Inscription des joueurs
