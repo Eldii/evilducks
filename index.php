@@ -54,6 +54,9 @@
                     <li>
                         <a href="#recompenses">Récompense</a>
                     </li>
+                    <li>
+                        <a href="#resultats">Résultats et Classement</a>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -142,6 +145,7 @@
     </div>
     <!-- /.content-section-b -->
 
+    <a  name="resultats"></a>
     <div class="content-section-a">
 
         <div class="container">
@@ -278,6 +282,10 @@
                         <li class="footer-menu-divider">&sdot;</li>
                         <li>
                             <a href="#recompense">Récompense</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="#resultats">Résultats et Classement</a>
                         </li>
                     </ul>
                     <p class="copyright text-muted small">Copyright &copy; Evilducks 2017. All Rights Reserved</p>
