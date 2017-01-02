@@ -168,3 +168,37 @@ footer {
 p.copyright {
     margin: 15px 0 0;
 }
+
+.circle.multi-line{
+    margin-left: 14%;
+    width:190px;
+    text-align:center;
+    border:2px solid; 
+    border-radius:100%;
+    line-height:15px;
+    height:190px;
+    padding-top:80px;
+}
+
+.heures {
+    font-size: 500%; /* Paragraphes de 14 pixels */
+}
+
+.heurestexte {
+    font-size: 150%; /* Paragraphes de 14 pixels */
+}
+
+.pseudo{
+    text-align: center;
+}
+
+.noob{
+    margin-left: 41%;
+    width:190px;
+    text-align:center;
+    border:2px solid; 
+    border-radius:100%;
+    line-height:15px;
+    height:190px;
+    padding-top:80px;
+}
