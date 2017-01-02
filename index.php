@@ -11,6 +11,10 @@
 
     <title>Evilducks Team - Quack !</title>
 
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpg" href="img/favicon.jpg" />
+
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
