@@ -12,7 +12,7 @@ Le premier du classement gagne le droit de ne pas seek de toute la semaine. Les 
 
 1.0.0 : 
 - Page d'accueil récapitulant l'ensemble des règles
-- Inscription des joueurs
+- Affichage des résultats et du classement (Pour le moment le traitement est fait manuellement)
 
 ### Amélioration futures ###
 
