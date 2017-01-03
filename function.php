@@ -33,10 +33,10 @@ function tempsdejeu() {
 function IDSteam() {
 	$joueurs = array(
 		"Ld" => "76561198110002164",
-		"Kryoux" => "76561197996849793",
+		"kRYOoX" => "76561197996849793",
 		"Lipton" => "76561198062663788",
 		"Fedaykin" => "76561197961467303",
-		"Yeti Eric" => "76561197987841925"
+		"YetiEric" => "76561197987841925"
 	);
 	return $joueurs;
 }

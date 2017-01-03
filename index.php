@@ -180,7 +180,7 @@
                           </tr>
                           <tr class="success">
                             <td>Ld</td>
-                            <td>Kryoux</td>
+                            <td>kRYOoX</td>
                             <td>16-3</td>
                           </tr>
                           <tr class="success">
@@ -218,7 +218,7 @@
                             <td>12</td>
                           </tr>
                           <tr>
-                            <td>Kry</td>
+                            <td>kRYOoX</td>
                             <td>9</td>
                           </tr>
                           <tr>
