@@ -170,14 +170,17 @@ p.copyright {
 }
 
 .circle.multi-line{
-    margin-left: 14%;
-    width:190px;
+    width:15em;
     text-align:center;
     border:2px solid; 
     border-radius:100%;
     line-height:15px;
-    height:190px;
+    height:15em;
     padding-top:80px;
+}
+
+.compteur{
+    margin-left: 2%;
 }
 
 .heures {
@@ -190,15 +193,5 @@ p.copyright {
 
 .pseudo{
     text-align: center;
-}
-
-.noob{
-    margin-left: 41%;
-    width:190px;
-    text-align:center;
-    border:2px solid; 
-    border-radius:100%;
-    line-height:15px;
-    height:190px;
-    padding-top:80px;
+    margin-left: 29%;
 }

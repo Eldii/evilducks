@@ -241,48 +241,29 @@
         </div>
 
     </div>
-
         <div class="content-section-c">
+            <h1 style="text-align: center;"> Nombre d'heures joués les 15 derniers jours (noob shaming au dernier) </h1>
 
         <div class="container">
 
             <div class="row">
-                <div class="col-lg-3 col-sm-3">
-                    <h2 class="section-heading pseudo">Kryoux</h2>
-                    <div class="circle multi-line">
-                        <p class="heures"> 2500</p><br /> <br /> <br />
-                        <p class="heurestexte"> Heures </p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-3">
-                    <h2 class="section-heading pseudo">Ld</h2>
-                    <div class="circle multi-line">
-                        <p class="heures"> 2400</p><br /> <br /> <br />
-                        <p class="heurestexte"> Heures </p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-3">
-                    <h2 class="section-heading pseudo">Yeti Eric</h2>
-                    <div class="circle multi-line">
-                        <p class="heures"> 2000</p><br /> <br /> <br />
-                        <p class="heurestexte"> Heures </p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-3">
-                    <h2 class="section-heading pseudo">Fedaykin</h2>
-                    <div class="circle multi-line">
-                        <p class="heures"> 1900</p><br /> <br /> <br />
-                        <p class="heurestexte"> Heures </p>
-                    </div>
-                </div>                
-            </div>
-            <div class="col-lg-12 col-sm-2">
-                    <h2 class="section-heading pseudo">Lipton</h2>
-                    <div class="noob">
-                        <p class="heures"> 1800</p><br /> <br /> <br />
-                        <p class="heurestexte"> Heures </p>
-                    </div>
-        </div>
+                <?php
+                    require("function.php");
+                    $tempsdejeu = tempsdejeu();
+                    foreach($tempsdejeu as $pseudo => $hours){ 
+                        echo '
+                        <div class="col-lg-2 col-sm-6 compteur">
+                            <h2 class="pseudo">'.$pseudo.'</h2>
+                            <div class="circle multi-line">
+                                <p class="heures">'
+                                .$hours.
+                                '</p><br /> <br /> <br />
+                                <p class="heurestexte"> Heures </p>
+                            </div>
+                        </div>';
+                    }
+                ?>                              
+            </div>            
         </div>        
         <!-- /.container -->
 
