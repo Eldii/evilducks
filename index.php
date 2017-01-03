@@ -250,17 +250,44 @@
                 <?php
                     require("function.php");
                     $tempsdejeu = tempsdejeu();
-                    foreach($tempsdejeu as $pseudo => $hours){ 
-                        echo '
-                        <div class="col-lg-2 col-sm-6 compteur">
-                            <h2 class="pseudo">'.$pseudo.'</h2>
-                            <div class="circle multi-line">
-                                <p class="heures">'
-                                .$hours.
-                                '</p><br /> <br /> <br />
-                                <p class="heurestexte"> Heures </p>
-                            </div>
-                        </div>';
+                    $premiereCle = current($tempsdejeu);
+                    end($tempsdejeu);
+                    $derniereCle = key($tempsdejeu);                    
+                    foreach($tempsdejeu as $pseudo => $hours){
+                        if($pseudo == $derniereCle){
+                            echo '
+                            <div class="col-lg-2 col-sm-6 compteur">
+                                <h2 class="pseudo">'.$pseudo.'</h2>
+                                <div class="lastcircle">
+                                    <p class="heures">'
+                                    .$hours.
+                                    '</p><br /> <br /> <br />
+                                    <p class="heurestexte"> Heures </p>
+                                </div>
+                            </div>';
+                        }elseif($hours == $premiereCle){
+                            echo '
+                            <div class="col-lg-2 col-sm-6 compteur">
+                                <h2 class="pseudo">'.$pseudo.'</h2>
+                                <div class="firstcircle">
+                                    <p class="heures">'
+                                    .$hours.
+                                    '</p><br /> <br /> <br />
+                                    <p class="heurestexte"> Heures </p>
+                                </div>
+                            </div>';
+                        }else{
+                            echo '
+                            <div class="col-lg-2 col-sm-6 compteur">
+                                <h2 class="pseudo">'.$pseudo.'</h2>
+                                <div class="circle multi-line">
+                                    <p class="heures">'
+                                    .$hours.
+                                    '</p><br /> <br /> <br />
+                                    <p class="heurestexte"> Heures </p>
+                                </div>
+                            </div>';
+                        }
                     }
                 ?>                              
             </div>            

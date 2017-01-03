@@ -179,6 +179,28 @@ p.copyright {
     padding-top:80px;
 }
 
+.lastcircle{
+    width:15em;
+    text-align:center;
+    border:2px solid; 
+    border-radius:100%;
+    line-height:15px;
+    height:15em;
+    padding-top:80px;
+    background: url(../img/caca.png) no-repeat center center;
+}
+
+.firstcircle{
+    width:15em;
+    text-align:center;
+    border:2px solid; 
+    border-radius:100%;
+    line-height:15px;
+    height:15em;
+    padding-top:80px;
+    background: url(../img/medaille.png) no-repeat center center;
+}
+
 .compteur{
     margin-left: 2%;
 }
