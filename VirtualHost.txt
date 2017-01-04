@@ -1,0 +1,18 @@
+C:\wamp\bin\apache\apache2.4.9\conf\extra\httpd-vhosts.conf
+Exemple :
+<VirtualHost *:80>
+  DocumentRoot "C:/wamp/www/iodelocal"
+  ServerName iodelocal
+  ServerAlias www.iodelocal
+  <Directory  "C:/wamp/www/iodelocal">
+    AllowOverride All
+    Require local
+  </Directory>
+</VirtualHost>
+
+C:\Windows\System32\drivers\etc\hosts
+Exemple :
+127.0.0.1       localhost iodelocal iodelocal-test-for-yani iodedepot testannotation iodeprod iodeprototype evilducks
+::1             localhost iodelocal iodelocal-test-for-yani iodedepot testannotation iodeprod iodeprototype evilducks
+
+=> Ce sont les deux fichiers à modifier pour créer un hote virtuel en local sur sa machine
