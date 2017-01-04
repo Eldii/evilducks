@@ -84,6 +84,38 @@
                                 <a href="https://github.com/Eldii/Evilducks/" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
                             </li>
                         </ul>
+                        <div class="box">
+							<a class="button" href="#popup1">Nouveau match</a>
+						</div>
+
+						<div id="popup1" class="overlay">
+							<div class="popup">
+								<a class="close" href="#">&times;</a>
+								<div class="content">
+									  <h2>Rentrez un nouveau résultat</h2>
+									  <form>
+									    <div class="form-group">
+									      <label for="joueur1">Joueur 1:</label>
+									      <input type="text" class="form-control" id="joueur1" placeholder="Enter Joueur 1">
+									    </div>
+									    <div class="form-group">
+									      <label for="joueur2">Joueur 2:</label>
+									      <input type="text" class="form-control" id="joueur2" placeholder="Enter Joueur 2">
+									    </div>
+									    <div class="form-group">
+									      <label for="score">Score du match:</label>
+									      <input type="text" class="form-control" id="scorejoueur1" placeholder="Enter Score">
+<!-- 									      <input type="text" class="form-control" id="scorejoueur2" placeholder=""> -->
+									    </div>
+									    <div class="form-group">
+									      <label for="score">Maps jouées (dans l'ordre) :</label>
+									      <input type="text" class="form-control" id="scorejoueur1" placeholder="Enter Maps" style="display: inline;">
+									    </div>
+									    <button type="submit" class="btn btn-default">Submit</button>
+									  </form>
+								</div>
+							</div>
+						</div>
                         <!-- <ul class="list-inline intro-social-buttons">
                             <li>
                                 <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
