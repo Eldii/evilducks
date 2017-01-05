@@ -209,12 +209,14 @@ p.copyright {
     font-size: 500%; /* Paragraphes de 14 pixels */
     color: black;
     font-weight: bold;
+    text-shadow:0 0 3px #FFF;
 }
 
 .heurestexte {
     font-size: 150%; /* Paragraphes de 14 pixels */
     color: black;
     font-weight: bold;
+    text-shadow:0 0 3px #FFF;
 }
 
 .pseudo{
