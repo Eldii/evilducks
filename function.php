@@ -41,4 +41,41 @@ function IDSteam() {
 	return $joueurs;
 }
 
+/**
+ * Fonction qui permet de se connecter à la base de données
+ * 
+*/
+function connectBD() {
+	$host = "kry.wtf";
+	$dbname = "evilcup_dev";
+	$username = "evilcup";
+	$password = "poneyponey42";
+	try{
+		$bdd = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+	}
+	catch(Exception $e){
+    // En cas d'erreur, on affiche un message et on arrête tout
+        die('Erreur : '.$e->getMessage());
+    }
+    return $bdd;	
+}
+
+/**
+ * Retourne le tableau des pseudos contenu dans la table "players"
+ * 
+ * @return array
+*/
+function RecupPseudo($joueur) {
+	$bdd = connectBD();
+	$reponse = $bdd->query('SELECT * FROM players');
+	$players = '<select class="form-control" name="'. $joueur .'">';
+	$value = 0;
+	while ($donnees = $reponse->fetch()){
+		$players .= '<option value="'. $value .'">'. $donnees['pseudo'] .'</option>';
+		$value ++;              
+	}
+	$players .= '</select>';
+	return $players;
+}
+
 ?>

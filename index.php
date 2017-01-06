@@ -23,7 +23,7 @@
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">    
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -35,6 +35,9 @@
 </head>
 
 <body>
+    <?php 
+    require("function.php");
+    ?>
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
@@ -92,24 +95,74 @@
 							<div class="popup">
 								<a class="close" href="#">&times;</a>
 								<div class="content">
-									  <h2>Rentrez un nouveau résultat</h2>
-									  <form>
+									  <h2>Rentrez un nouveau résultat</h2>                                      
+									  <form action="traitement_match.php" method="post">
 									    <div class="form-group">
 									      <label for="joueur1">Joueur 1:</label>
-									      <input type="text" class="form-control" id="joueur1" placeholder="Enter Joueur 1">
+									       <?php
+                                           $pseudos = RecupPseudo('joueur1');
+                                           echo $pseudos;
+                                          ?>
 									    </div>
 									    <div class="form-group">
 									      <label for="joueur2">Joueur 2:</label>
-									      <input type="text" class="form-control" id="joueur2" placeholder="Enter Joueur 2">
+									      <?php
+                                           $pseudos = RecupPseudo('joueur2');
+                                           echo $pseudos;
+                                          ?>
 									    </div>
 									    <div class="form-group">
-									      <label for="score">Score du match:</label>
-									      <input type="text" class="form-control" id="scorejoueur1" placeholder="Enter Score">
-<!-- 									      <input type="text" class="form-control" id="scorejoueur2" placeholder=""> -->
+                                            <div class="col-xs-3">
+    									      <label for="score">Map 1 :</label>
+                                                <div class="row">
+                                                    <div class="col-xs-2">
+        									           <input type="text" class="form-control test" name="scoremap1j1" id="scorejoueur1" placeholder="16">
+                                                    </div>
+                                                    <div class="col-xs-1">
+                                                    </div>
+                                                    <div class="col-xs-2">
+                                                        <input type="text" class="form-control test" name="scoremap1j2" id="scorejoueur1" placeholder="0">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-1">
+                                            </div>
+                                            <div class="col-xs-3">
+                                              <label for="score">Map 2 :</label>
+                                                <div class="row">
+                                                    <div class="col-xs-2">
+                                                       <input type="text" class="form-control test" name="scoremap2j1" id="scorejoueur1" placeholder="16">
+                                                    </div>
+                                                    <div class="col-xs-1">
+                                                    </div>
+                                                    <div class="col-xs-2">
+                                                        <input type="text" class="form-control test" name="scoremap2j2" id="scorejoueur1" placeholder="0">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-1">
+                                            </div>
+                                            <div class="col-xs-3">
+                                              <label for="score">Map 3 :</label>
+                                                <div class="row">
+                                                    <div class="col-xs-2">
+                                                       <input type="text" class="form-control test" name="scoremap3j2" id="scorejoueur1" placeholder="0">
+                                                    </div>
+                                                    <div class="col-xs-1">
+                                                    </div>
+                                                    <div class="col-xs-2">
+                                                        <input type="text" class="form-control test" name="scoremap3j2" id="scorejoueur1" placeholder="0">
+                                                    </div>
+                                                </div>
+                                            </div>
 									    </div>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
 									    <div class="form-group">
-									      <label for="score">Maps jouées (dans l'ordre) :</label>
-									      <input type="text" class="form-control" id="scorejoueur1" placeholder="Enter Maps" style="display: inline;">
+									      <label for="score">Maps jouées (dans l'ordre en les séparant par des virgules) :</label>
+									      <input type="text" class="form-control" name="maps" id="maps" placeholder="Exemple : aim_map, aim_pistol, awp_lego" style="display: inline;">
 									    </div>
 									    <button type="submit" class="btn btn-default">Submit</button>
 									  </form>
@@ -279,8 +332,7 @@
         <div class="container">
 
             <div class="row">
-                <?php
-                    require("function.php");
+                <?php                    
                     $tempsdejeu = tempsdejeu();
                     $premiereCle = current($tempsdejeu);
                     end($tempsdejeu);
