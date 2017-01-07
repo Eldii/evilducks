@@ -23,7 +23,7 @@
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">    
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -35,7 +35,7 @@
 </head>
 
 <body>
-    <?php 
+    <?php
     require("function.php");
     ?>
 
@@ -88,35 +88,35 @@
                             </li>
                         </ul>
                         <div class="box">
-							<a class="button" href="#popup1">Nouveau match</a>
-						</div>
+                            <a class="button" href="#popup1">Nouveau match</a>
+                        </div>
 
-						<div id="popup1" class="overlay">
-							<div class="popup">
-								<a class="close" href="#">&times;</a>
-								<div class="content">
-									  <h2>Rentrez un nouveau résultat</h2>                                      
-									  <form action="traitement_match.php" method="post">
-									    <div class="form-group">
-									      <label for="joueur1">Joueur 1:</label>
-									       <?php
+                        <div id="popup1" class="overlay">
+                            <div class="popup">
+                                <a class="close" href="#">&times;</a>
+                                <div class="content">
+                                      <h2>Rentrez un nouveau résultat</h2>
+                                      <form action="traitement_match.php" method="post">
+                                        <div class="form-group">
+                                          <label for="joueur1">Joueur 1:</label>
+                                           <?php
                                            $pseudos = RecupPseudo('joueur1');
                                            echo $pseudos;
                                           ?>
-									    </div>
-									    <div class="form-group">
-									      <label for="joueur2">Joueur 2:</label>
-									      <?php
+                                        </div>
+                                        <div class="form-group">
+                                          <label for="joueur2">Joueur 2:</label>
+                                          <?php
                                            $pseudos = RecupPseudo('joueur2');
                                            echo $pseudos;
                                           ?>
-									    </div>
-									    <div class="form-group">
+                                        </div>
+                                        <div class="form-group">
                                             <div class="col-xs-3">
-    									      <label for="score">Map 1 :</label>
+                                              <label for="score">Map 1 :</label>
                                                 <div class="row">
                                                     <div class="col-xs-2">
-        									           <input type="text" class="form-control test" name="scoremap1j1" id="scorejoueur1" placeholder="16">
+                                                       <input type="text" class="form-control test" name="scoremap1j1" id="scorejoueur1" placeholder="16">
                                                     </div>
                                                     <div class="col-xs-1">
                                                     </div>
@@ -155,20 +155,20 @@
                                                     </div>
                                                 </div>
                                             </div>
-									    </div>
+                                        </div>
                                         <br/>
                                         <br/>
                                         <br/>
                                         <br/>
-									    <div class="form-group">
-									      <label for="score">Maps jouées (dans l'ordre en les séparant par des virgules) :</label>
-									      <input type="text" class="form-control" name="maps" id="maps" placeholder="Exemple : aim_map, aim_pistol, awp_lego" style="display: inline;">
-									    </div>
-									    <button type="submit" class="btn btn-default">Submit</button>
-									  </form>
-								</div>
-							</div>
-						</div>
+                                        <div class="form-group">
+                                          <label for="score">Maps jouées (dans l'ordre en les séparant par des virgules) :</label>
+                                          <input type="text" class="form-control" name="maps" id="maps" placeholder="Exemple : aim_map, aim_pistol, awp_lego" style="display: inline;">
+                                        </div>
+                                        <button type="submit" class="btn btn-default">Submit</button>
+                                      </form>
+                                </div>
+                            </div>
+                        </div>
                         <!-- <ul class="list-inline intro-social-buttons">
                             <li>
                                 <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
@@ -189,7 +189,7 @@
 
     <!-- Page Content -->
 
-	<a  name="regles"></a>
+    <a  name="regles"></a>
     <div class="content-section-a">
 
         <div class="container">
@@ -332,13 +332,13 @@
         <div class="container">
 
             <div class="row">
-                <?php                    
+                <?php
                     $tempsdejeu = tempsdejeu();
                     $premiereCle = current($tempsdejeu);
                     end($tempsdejeu);
-                    $derniereCle = key($tempsdejeu);                    
-                    foreach($tempsdejeu as $pseudo => $hours){
-                        if($pseudo == $derniereCle){
+                    $derniereCle = key($tempsdejeu);
+                    foreach ($tempsdejeu as $pseudo => $hours) {
+                        if ($pseudo == $derniereCle) {
                             echo '
                             <div class="col-lg-2 col-sm-6 compteur">
                                 <h2 class="pseudo">'.$pseudo.'</h2>
@@ -349,7 +349,7 @@
                                     <p class="heurestexte"> Heures </p>
                                 </div>
                             </div>';
-                        }elseif($hours == $premiereCle){
+                        } elseif ($hours == $premiereCle) {
                             echo '
                             <div class="col-lg-2 col-sm-6 compteur">
                                 <h2 class="pseudo">'.$pseudo.'</h2>
@@ -360,7 +360,7 @@
                                     <p class="heurestexte"> Heures </p>
                                 </div>
                             </div>';
-                        }else{
+                        } else {
                             echo '
                             <div class="col-lg-2 col-sm-6 compteur">
                                 <h2 class="pseudo">'.$pseudo.'</h2>
@@ -373,9 +373,9 @@
                             </div>';
                         }
                     }
-                ?>                              
-            </div>            
-        </div>        
+                ?>
+            </div>
+        </div>
         <!-- /.container -->
 
     </div>
