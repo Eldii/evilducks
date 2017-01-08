@@ -4,7 +4,7 @@
  * Fonction qui permet de se connecter à la base de données
  *
 */
-function connectBD()
+function connectDB()
 {
     $host = "kry.wtf";
     $dbname = "evilcup_dev";
@@ -24,9 +24,9 @@ function connectBD()
  *
  * @return array
 */
-function tempsdejeu()
+function tempsDeJeu()
 {
-	$bdd = connectBD();
+	$bdd = connectDB();
 	$reponse = $bdd->query('SELECT * FROM players');
 	$joueurs = array();
 	while ($donnees = $reponse->fetch()) {
@@ -56,9 +56,9 @@ function tempsdejeu()
  *
  * @return array
 */
-function RecupPseudo($joueur)
+function recupPseudo($joueur)
 {
-    $bdd = connectBD();
+    $bdd = connectDB();
     $reponse = $bdd->query('SELECT * FROM players');
     $players = '<select class="form-control" name="'. $joueur .'">';
     $value = 0;
