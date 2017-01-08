@@ -47,7 +47,7 @@ function tempsDeJeu()
         $hours = round($playtime_2weeks/60, 1, PHP_ROUND_HALF_UP);
         $tempsdejeu[$pseudo] = $hours;
         arsort($tempsdejeu);
-/*	    array_push($tempsdejeu, $pseudo => $hours);*/
+/*        array_push($tempsdejeu, $pseudo => $hours);*/
     }
     return $tempsdejeu;
 }
@@ -196,4 +196,67 @@ function afficherScoreGeneral($map1, $map2, $map3)
     }
 
     return $scorej1 . '-' . $scorej2;
+
+/**
+ * Retourne le pseudo d'un joueur en partant de son id
+ *
+ * @return string
+*/
+function playerIdToNick($bdd, $id)
+{
+
+    $sql_query = $bdd->prepare("SELECT id, pseudo FROM players WHERE id = :id");
+    $sql_query->bindParam(':id', $id);
+    $sql_query->execute();
+    $pseudo = $sql_query->fetch();
+    return $pseudo['pseudo'];
+}
+
+/**
+ * Retourne un array correspondant au classement de la semaine. -1 = n'as jamais joué cette semaine.
+ *
+ * @return array
+*/
+function ranking()
+{
+    $bdd = connectDB();
+    $rankings = array();
+
+    $players = $bdd->query('SELECT * FROM players');
+    while ($data = $players->fetch(PDO::FETCH_ASSOC)) {
+        $rankings[$data['pseudo']] = -1;
+    }
+
+    $match_result = $bdd->query('SELECT * FROM match_result');
+    while ($data = $match_result->fetch(PDO::FETCH_ASSOC)) {
+        $pseudo1 = playerIdToNick($bdd, $data['player1']);
+        $pseudo2 = playerIdToNick($bdd, $data['player2']);
+
+        # Hax pour voir que les joueurs ont joué même s'ils n'ont pas de points.
+        if ($rankings[$pseudo1] <= -1)
+            $rankings[$pseudo1] = 0;
+        if ($rankings[$pseudo2] <= -1)
+            $rankings[$pseudo2] = 0;
+
+        for ($x = 1; $x <= 3; $x++) {
+            # On stop la boucle dès qu'on trouve une map à NULL
+            if (!$data["map$x"])
+                break ;
+
+            $sql_query = $bdd->prepare(
+                "SELECT match_result.id, match_result.map1, map_result.id, map_result.score_p1, map_result.score_p2 FROM match_result, map_result WHERE match_result.id = :match_id AND match_result.map1 = :map_id"
+            );
+            $sql_query->bindParam(':match_id', $data['id']);
+            $sql_query->bindParam(':map_id', $data["map$x"]);
+            $sql_query->execute();
+            $map = $sql_query->fetch();
+
+            if ($map['score_p1'] > $map['score_p2'])
+                $rankings[$pseudo1]++;
+            else
+                $rankings[$pseudo2]++;
+        }
+    }
+
+    return $rankings;
 }
