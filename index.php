@@ -100,14 +100,14 @@
                                         <div class="form-group">
                                           <label for="joueur1">Joueur 1:</label>
                                            <?php
-                                           $pseudos = RecupPseudo('joueur1');
+                                           $pseudos = recupPseudo('joueur1');
                                            echo $pseudos;
                                           ?>
                                         </div>
                                         <div class="form-group">
                                           <label for="joueur2">Joueur 2:</label>
                                           <?php
-                                           $pseudos = RecupPseudo('joueur2');
+                                           $pseudos = recupPseudo('joueur2');
                                            echo $pseudos;
                                           ?>
                                         </div>

@@ -53,6 +53,7 @@ function tempsDeJeu()
 
 /**
  * Retourne le tableau des pseudos contenu dans la table "players"
+ * @param $joueur string
  *
  * @return array
 */
@@ -61,11 +62,29 @@ function recupPseudo($joueur)
     $bdd = connectDB();
     $reponse = $bdd->query('SELECT * FROM players');
     $players = '<select class="form-control" name="'. $joueur .'">';
-    $value = 0;
+    $value = 1;
     while ($donnees = $reponse->fetch()) {
         $players .= '<option value="'. $value .'">'. $donnees['pseudo'] .'</option>';
         $value ++;
     }
     $players .= '</select>';
     return $players;
+}
+
+/**
+ * Ajoute un nouveau match dans la base de données
+ *
+ * @return int
+*/
+function addNewMatch($idjoueur1, $idjoueur2, $score1, $score2)
+{
+    $bdd = connectDB();
+    $reponse = $bdd->prepare('INSERT INTO map_result VALUES (NULL, 1, :idjoueur1, :idjoueur2, :score1, :score2)');
+    $reponse->execute(array(
+    'idjoueur1' => intval($idjoueur1),
+    'idjoueur2' => intval($idjoueur2),
+    'score1' => intval($score1),
+    'score2' => intval($score2)
+    ));
+    echo "add";
 }
