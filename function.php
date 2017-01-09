@@ -52,12 +52,12 @@ function tempsDeJeu()
 }
 
 /**
- * Retourne le tableau des pseudos contenu dans la table "players"
- * @param $joueur string
+ * Retourne la picklist html avec l'ensemble des pseudos des joueurs
+ * @param string
  *
- * @return array
+ * @return string
 */
-function recupPseudo($joueur)
+function recupPseudoPickList($joueur)
 {
     $bdd = connectDB();
     $reponse = $bdd->query('SELECT * FROM players');
@@ -87,4 +87,88 @@ function addNewMatch($idjoueur1, $idjoueur2, $score1, $score2)
     'score2' => intval($score2)
     ));
     echo "add";
+}
+
+/**
+ * Retourne le tableau de l'ensemble de joueurs de l'équipe
+ *
+ * @return array
+*/
+function recupPseudo()
+{
+    $bdd = connectDB();
+    $reponse = $bdd->query('SELECT * FROM players');
+    $players = array();
+    while ($donnees = $reponse->fetch()) {
+        $players[$donnees['id']] = $donnees['pseudo'];
+    }
+    return $players;
+}
+
+/**
+ * Retourne le tableau html avec l'ensemble des résultats de match
+ *
+ * @return array
+*/
+function resultatsMatchs()
+{
+    $bdd = connectDB();
+    $reponse = $bdd->query('SELECT * FROM match_result');
+    $pseudos = recupPseudo();
+    while ($donnees = $reponse->fetch()) {
+      foreach ($pseudos as $id => $pseudo) {
+        if($donnees['player1'] == $id){
+          $player1 = $pseudo;
+        }
+        if($donnees['player2'] == $id){
+          $player2 = $pseudo;
+        }
+      }
+      echo '<tr>
+        <td>'. $player1 .'</td>
+        <td>'. $player2 .'</td>
+        <td>'. afficherScoreGeneral(intval($donnees['map1']), intval($donnees['map2']), intval($donnees['map3'])) .'</td>
+      </tr>';
+    }
+}
+
+/**
+ * Retourne le score d'une seul map
+ *
+ * @return array
+*/
+function afficherScoreUneMap($map)
+{
+    $bdd = connectDB();
+    $reponse = $bdd->prepare('SELECT score_p1, score_p2 FROM map_result WHERE id = ?');
+    $reponse->execute(array(intval($map)));
+    while ($donnees = $reponse->fetch()) {
+        $scoremap = $donnees['score_p1'] . '-' . $donnees['score_p2'];
+    }
+    if(isset($scoremap)){
+      return $scoremap;
+    }
+}
+
+/**
+ * Retourne le socre de l'ensemble d'un match
+ *
+ * @return array
+*/
+function afficherScoreGeneral($map1, $map2, $map3)
+{
+    $scoremap1 = explode('-', afficherScoreUneMap($map1));
+    $scoremap2 = explode('-', afficherScoreUneMap($map2));
+    $scoremap3 = explode('-', afficherScoreUneMap($map3));
+
+    if(scoremap1[0] > scoremap1[1] && scoremap2[0] > scoremap2[1]){
+      echo "2-0";
+    }elseif(scoremap1[0] < scoremap1[1] && scoremap2[0] < scoremap2[1]){
+      echo "0-2";
+    }
+
+    if(scoremap1[0] > scoremap1[1] && scoremap2[0] < scoremap2[1] && scoremap3[0] < scoremap3[1])
+
+
+    var_dump($scoremap1);
 }
