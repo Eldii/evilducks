@@ -100,14 +100,14 @@
                                         <div class="form-group">
                                           <label for="joueur1">Joueur 1:</label>
                                            <?php
-                                           $pseudos = RecupPseudo('joueur1');
+                                           $pseudos = recupPseudoPickList('joueur1');
                                            echo $pseudos;
-                                          ?>
+                                           ?>
                                         </div>
                                         <div class="form-group">
                                           <label for="joueur2">Joueur 2:</label>
                                           <?php
-                                           $pseudos = RecupPseudo('joueur2');
+                                           $pseudos = recupPseudoPickList('joueur2');
                                            echo $pseudos;
                                           ?>
                                         </div>
@@ -253,36 +253,9 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr class="success">
-                            <td>Ld</td>
-                            <td>Lipton</td>
-                            <td>16-0</td>
-                          </tr>
-                          <tr class="danger">
-                            <td>Ld</td>
-                            <td>Fedaykin</td>
-                            <td>14-16</td>
-                          </tr>
-                          <tr class="success">
-                            <td>Ld</td>
-                            <td>kRYOoX</td>
-                            <td>16-3</td>
-                          </tr>
-                          <tr class="success">
-                            <td>Ld</td>
-                            <td>YetiEric</td>
-                            <td>16-0</td>
-                          </tr>
-                          <tr class="warning">
-                            <td>Ld</td>
-                            <td>Ahix</td>
-                            <td>15-15</td>
-                          </tr>
-                          <tr class="danger">
-                            <td>Ld</td>
-                            <td>Vadriendel</td>
-                            <td>12-16</td>
-                          </tr>
+                          <?php
+                          resultatsMatchs(); 
+                           ?>
                         </tbody>
                     </table>
                 </div>
