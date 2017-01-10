@@ -65,28 +65,10 @@ function recupPseudoPickList($joueur)
     $value = 1;
     while ($donnees = $reponse->fetch()) {
         $players .= '<option value="'. $value .'">'. $donnees['pseudo'] .'</option>';
-        $value ++;
+        $value++;
     }
     $players .= '</select>';
     return $players;
-}
-
-/**
- * Ajoute un nouveau match dans la base de données
- *
- * @return int
-*/
-function addNewMatch($idjoueur1, $idjoueur2, $score1, $score2)
-{
-    $bdd = connectDB();
-    $reponse = $bdd->prepare('INSERT INTO map_result VALUES (NULL, 1, :idjoueur1, :idjoueur2, :score1, :score2)');
-    $reponse->execute(array(
-    'idjoueur1' => intval($idjoueur1),
-    'idjoueur2' => intval($idjoueur2),
-    'score1' => intval($score1),
-    'score2' => intval($score2)
-    ));
-    echo "add";
 }
 
 /**
@@ -103,6 +85,46 @@ function recupPseudo()
         $players[$donnees['id']] = $donnees['pseudo'];
     }
     return $players;
+}
+
+/**
+ * Ajoute un nouveau match dans la base de données
+ *
+ * @return int
+*/
+function addNewMapResult($idjoueur1, $idjoueur2, $score1, $score2)
+{
+    $score2 = empty($score2) ? intval("0") : $score2;
+    $bdd = connectDB();
+    $reponse = $bdd->prepare('INSERT INTO map_result VALUES (NULL, 1, :idjoueur1, :idjoueur2, :score1, :score2)');
+    $reponse->execute(array(
+    'idjoueur1' => intval($idjoueur1),
+    'idjoueur2' => intval($idjoueur2),
+    'score1' => intval($score1),
+    'score2' => intval($score2)
+    ));
+    $lastid = $bdd->lastInsertId();
+    return $lastid;
+}
+
+/**
+ * Ajoute un nouveau match dans la base de données
+ *
+ * @return int
+*/
+function addNewMatch($type, $idjoueur1, $idjoueur2, $map1, $map2, $map3)
+{
+    $bdd = connectDB();
+    $reponse = $bdd->prepare('INSERT INTO match_result VALUES (NULL, :type, :idjoueur1, :idjoueur2, :score1, :score2, :score3, :datejoue)');
+    $reponse->execute(array(
+    'type' => $type,
+    'idjoueur1' => intval($idjoueur1),
+    'idjoueur2' => intval($idjoueur2),
+    'score1' => intval($map1),
+    'score2' => intval($map2),
+    'score3' => $map3,
+    'datejoue' => date("Y-m-d")
+    ));
 }
 
 /**
@@ -124,10 +146,11 @@ function resultatsMatchs()
           $player2 = $pseudo;
         }
       }
+      $score = afficherScoreGeneral(intval($donnees['map1']), intval($donnees['map2']), intval($donnees['map3']));
       echo '<tr>
         <td>'. $player1 .'</td>
         <td>'. $player2 .'</td>
-        <td>'. afficherScoreGeneral(intval($donnees['map1']), intval($donnees['map2']), intval($donnees['map3'])) .'</td>
+        <td>'. $score .'</td>
       </tr>';
     }
 }
@@ -158,17 +181,19 @@ function afficherScoreUneMap($map)
 function afficherScoreGeneral($map1, $map2, $map3)
 {
     $scoremap1 = explode('-', afficherScoreUneMap($map1));
-    $scoremap2 = explode('-', afficherScoreUneMap($map2));
-    $scoremap3 = explode('-', afficherScoreUneMap($map3));
+    $scoremap2 = !empty($map2) ? explode('-', afficherScoreUneMap($map2)) : "";
+    $scoremap3 = !empty($map3) ? explode('-', afficherScoreUneMap($map3)) : "";
 
-    if(scoremap1[0] > scoremap1[1] && scoremap2[0] > scoremap2[1]){
-      echo "2-0";
-    }elseif(scoremap1[0] < scoremap1[1] && scoremap2[0] < scoremap2[1]){
-      echo "0-2";
+    $scorej1 = 0;
+    $scorej2 = 0;
+
+    $scoremap1[0] > $scoremap1[1] ? $scorej1++ : $scorej2++;
+    if(!empty($scoremap2)){
+      $scoremap2[0] > $scoremap2[1] ? $scorej1++ : $scorej2++;
+    }
+    if(!empty($scoremap3)){
+      $scoremap3[0] > $scoremap3[1] ? $scorej1++ : $scorej2++;
     }
 
-    if(scoremap1[0] > scoremap1[1] && scoremap2[0] < scoremap2[1] && scoremap3[0] < scoremap3[1])
-
-
-    var_dump($scoremap1);
+    return $scorej1 . '-' . $scorej2;
 }
