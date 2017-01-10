@@ -196,6 +196,7 @@ function afficherScoreGeneral($map1, $map2, $map3)
     }
 
     return $scorej1 . '-' . $scorej2;
+}
 
 /**
  * Retourne le pseudo d'un joueur en partant de son id
@@ -257,6 +258,5 @@ function ranking()
                 $rankings[$pseudo2]++;
         }
     }
-
     return $rankings;
 }
