@@ -3,6 +3,7 @@
 /**
  * Fonction qui permet de se connecter à la base de données
  *
+ * @return variable de connection à la DB
 */
 function connectDB()
 {
@@ -20,7 +21,7 @@ function connectDB()
 }
 
 /**
- * Retourne un tableau php trié regroupant les joueurs avec leur temps de jeu
+ * Retourne un tableau php trié regroupant les joueurs en fonction de leur temps de jeu
  *
  * @return array
 */
@@ -72,7 +73,7 @@ function recupPseudoPickList($joueur)
 }
 
 /**
- * Retourne le tableau de l'ensemble de joueurs de l'équipe
+ * Retourne le tableau (de type id => pseudo) de l'ensemble des joueurs de l'équipe
  *
  * @return array
 */
@@ -90,7 +91,7 @@ function recupPseudo()
 /**
  * Ajoute un nouveau match dans la base de données
  *
- * @return int
+ * @return int id resultat de la map inséré
 */
 function addNewMapResult($idjoueur1, $idjoueur2, $score1, $score2)
 {
@@ -110,7 +111,6 @@ function addNewMapResult($idjoueur1, $idjoueur2, $score1, $score2)
 /**
  * Ajoute un nouveau match dans la base de données
  *
- * @return int
 */
 function addNewMatch($type, $idjoueur1, $idjoueur2, $map1, $map2, $map3)
 {
@@ -158,7 +158,7 @@ function resultatsMatchs()
 /**
  * Retourne le score d'une seul map
  *
- * @return array
+ * @return string
 */
 function afficherScoreUneMap($map)
 {
