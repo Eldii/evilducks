@@ -1,5 +1,5 @@
 <?php
-
+$bdd = $bdd = connectDB();
 /**
  * Fonction qui permet de se connecter à la base de données
  *
@@ -27,7 +27,7 @@ function connectDB()
 */
 function tempsDeJeu()
 {
-	$bdd = connectDB();
+	global $bdd;
 	$reponse = $bdd->query('SELECT * FROM players');
 	$joueurs = array();
 	while ($donnees = $reponse->fetch()) {
@@ -60,7 +60,7 @@ function tempsDeJeu()
 */
 function recupPseudoPickList($joueur)
 {
-    $bdd = connectDB();
+    global $bdd;
     $reponse = $bdd->query('SELECT * FROM players');
     $players = '<select class="form-control" name="'. $joueur .'">';
     $value = 1;
@@ -79,7 +79,7 @@ function recupPseudoPickList($joueur)
 */
 function recupPseudo()
 {
-    $bdd = connectDB();
+    global $bdd;
     $reponse = $bdd->query('SELECT * FROM players');
     $players = array();
     while ($donnees = $reponse->fetch()) {
@@ -114,7 +114,7 @@ function addNewMapResult($idjoueur1, $idjoueur2, $score1, $score2)
 */
 function addNewMatch($type, $idjoueur1, $idjoueur2, $map1, $map2, $map3)
 {
-    $bdd = connectDB();
+    global $bdd;
     $reponse = $bdd->prepare('INSERT INTO match_result VALUES (NULL, :type, :idjoueur1, :idjoueur2, :score1, :score2, :score3, :datejoue)');
     $reponse->execute(array(
     'type' => $type,
@@ -134,7 +134,7 @@ function addNewMatch($type, $idjoueur1, $idjoueur2, $map1, $map2, $map3)
 */
 function resultatsMatchs()
 {
-    $bdd = connectDB();
+    global $bdd;
     $reponse = $bdd->query('SELECT * FROM match_result');
     $pseudos = recupPseudo();
     while ($donnees = $reponse->fetch()) {
@@ -162,7 +162,7 @@ function resultatsMatchs()
 */
 function afficherScoreUneMap($map)
 {
-    $bdd = connectDB();
+    global $bdd;
     $reponse = $bdd->prepare('SELECT score_p1, score_p2 FROM map_result WHERE id = ?');
     $reponse->execute(array(intval($map)));
     while ($donnees = $reponse->fetch()) {
@@ -220,7 +220,7 @@ function playerIdToNick($bdd, $id)
 */
 function ranking()
 {
-    $bdd = connectDB();
+    global $bdd;
     $rankings = array();
 
     $players = $bdd->query('SELECT * FROM players');
@@ -259,4 +259,20 @@ function ranking()
         }
     }
     return $rankings;
+}
+
+/**
+ * Affiche le classement de chaque joueur ayant participer au tournoi
+ *
+*/
+function afficherClassement()
+{
+    $classement = ranking();
+    arsort($classement);
+      foreach($classement as $pseudo => $score){
+        echo '<tr>
+          <td>' . $pseudo . '</td>
+          <td>' . $score .'</td>
+        </tr>';
+      }
 }

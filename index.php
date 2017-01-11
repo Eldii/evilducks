@@ -273,26 +273,9 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Ld</td>
-                <td>12</td>
-              </tr>
-              <tr>
-                <td>kRYOoX</td>
-                <td>9</td>
-              </tr>
-              <tr>
-                <td>YetiEric</td>
-                <td>9</td>
-              </tr>
-              <tr>
-                <td>Fedaykin</td>
-                <td>9</td>
-              </tr>
-              <tr>
-                <td>Lipton</td>
-                <td>0</td>
-              </tr>
+              <?php
+              afficherClassement();
+              ?>
             </tbody>
           </table>
         </div>
