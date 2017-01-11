@@ -1,5 +1,5 @@
 <?php
-$bdd = $bdd = connectDB();
+$bdd = connectDB();
 /**
  * Fonction qui permet de se connecter à la base de données
  *
@@ -7,6 +7,7 @@ $bdd = $bdd = connectDB();
 */
 function connectDB()
 {
+    // Initialisation des variables utiles à la connection à DB
     $host = "kry.wtf";
     $dbname = "evilcup_dev";
     $username = "evilcup";
@@ -137,6 +138,7 @@ function resultatsMatchs()
     global $bdd;
     $reponse = $bdd->query('SELECT * FROM match_result');
     $pseudos = recupPseudo();
+    $tr = "";
     while ($donnees = $reponse->fetch()) {
       foreach ($pseudos as $id => $pseudo) {
         if($donnees['player1'] == $id){
@@ -147,12 +149,13 @@ function resultatsMatchs()
         }
       }
       $score = afficherScoreGeneral(intval($donnees['map1']), intval($donnees['map2']), intval($donnees['map3']));
-      echo '<tr>
+      $tr .= '<tr>
         <td>'. $player1 .'</td>
         <td>'. $player2 .'</td>
         <td>'. $score .'</td>
       </tr>';
     }
+    return $tr;
 }
 
 /**
@@ -278,9 +281,17 @@ function afficherClassement()
     $classement = ranking();
     arsort($classement);
       foreach($classement as $pseudo => $score){
-        echo '<tr>
-          <td>' . $pseudo . '</td>
-          <td>' . $score .'</td>
-        </tr>';
+        // On check si le joueur n'as pas effectué un seul match
+        if($score == -1){
+          echo '<tr>
+            <td>' . $pseudo . '</td>
+            <td> N/A </td>
+          </tr>';
+        }else{ // Sinon on affiche son nombre de point avec son pseudo
+          echo '<tr>
+            <td>' . $pseudo . '</td>
+            <td>' . $score .'</td>
+          </tr>';
+        }
       }
 }

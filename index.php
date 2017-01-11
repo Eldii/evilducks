@@ -117,7 +117,7 @@
                       </div>
                       <div class="form-group">
                         <div class="col-xs-4">
-                          <label for="score">Map 1 :</label>
+                          <label class="libellemap">Map 1 :</label>
                           <div class="row">
                             <div class="col-xs-2">
                               <input type="text" class="form-control score" name="scoremap1j1" id="scorejoueur1" placeholder="16" required>
@@ -130,7 +130,7 @@
                           </div>
                         </div>
                         <div class="col-xs-4">
-                          <label for="score">Map 2 :</label>
+                          <label class="libellemap">Map 2 :</label>
                           <div class="row">
                             <div class="col-xs-2">
                               <input type="text" class="form-control score" name="scoremap2j1" id="scorejoueur1" placeholder="16" required>
@@ -143,7 +143,7 @@
                           </div>
                         </div>
                         <div class="col-xs-4">
-                          <label for="score">Map 3 :</label>
+                          <label class="libellemap">Map 3 :</label>
                           <div class="row">
                             <div class="col-xs-2">
                               <input type="text" class="form-control score" name="scoremap3j1" id="scorejoueur1" placeholder="0">
@@ -245,21 +245,32 @@
       <div class="col-lg-5 col-sm-6">
         <hr class="section-heading-spacer">
         <div class="clearfix"></div>
-        <h2 class="section-heading">Rencontres de la semaine</h2>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Pseudo1</th>
-              <th>Pseudo2</th>
-              <th>Score</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-            resultatsMatchs();
-            ?>
-          </tbody>
-        </table>
+        <h2 class="section-heading">Derniers matchs joués</h2>
+        <?php
+        $rankings = ranking();
+        $matchsjoue = 0;
+        foreach($rankings as $pseudo => $score){
+              if($score == -1){
+                $matchsjoue++;
+              }
+        }
+        if($matchsjoue == count($rankings)){
+          echo "<p> Aucun match n'a été joué </p>";
+        }else{
+          echo '<table class="table">
+            <thead>
+              <tr>
+                <th>Pseudo1</th>
+                <th>Pseudo2</th>
+                <th>Score</th>
+              </tr>
+            </thead>
+            <tbody>'.
+              resultatsMatchs()
+            .'</tbody>
+          </table>';
+        }
+          ?>
       </div>
       <div class="col-lg-5 col-lg-offset-2 col-sm-6">
         <hr class="section-heading-spacer">

@@ -272,6 +272,10 @@ input{
   width: 3em;
 }
 
+.libellemap{
+  margin-right: 25%;
+}
+
 .center {
     margin-top:50px;
 }
