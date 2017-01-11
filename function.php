@@ -228,8 +228,16 @@ function ranking()
         $rankings[$data['pseudo']] = -1;
     }
 
-    $match_result = $bdd->query('SELECT * FROM match_result');
+    $match_result = $bdd->query(
+        'SELECT *, UNIX_TIMESTAMP(date) AS timestamp FROM match_result WHERE UNIX_TIMESTAMP(date) - UNIX_TIMESTAMP(NOW()) <= 604801'
+    );
     while ($data = $match_result->fetch(PDO::FETCH_ASSOC)) {
+
+        # Skip si le match n'est pas de la semaine en cours.
+        $week_start = strtotime('last monday');
+        if ($data['timestamp'] < $week_start)
+            continue;
+
         $pseudo1 = playerIdToNick($bdd, $data['player1']);
         $pseudo2 = playerIdToNick($bdd, $data['player2']);
 
