@@ -1,0 +1,9 @@
+<?php
+
+define("DB_HOST",       "IP or URL");
+define("DB_PORT",       "port");
+define("DB_USER",       "user");
+define("DB_PASSWORD",   "secret password");
+define("DB_NAME",       "database");
+
+?>
