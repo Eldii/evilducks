@@ -1,7 +1,6 @@
 <?php
-$bdd = connectDB();
-
 require("config.php");
+$bdd = connectDB();
 
 /**
  * Fonction qui permet de se connecter à la base de données
