@@ -1,4 +1,7 @@
 <?php
+
+require("config.php");
+
 $bdd = $bdd = connectDB();
 /**
  * Fonction qui permet de se connecter à la base de données
@@ -7,12 +10,13 @@ $bdd = $bdd = connectDB();
 */
 function connectDB()
 {
-    $host = "kry.wtf";
-    $dbname = "evilcup_dev";
-    $username = "evilcup";
-    $password = "poneyponey42";
+    $host = DB_HOST;
+    $port = DB_PORT;
+    $dbname = DB_NAME;
+    $username = DB_USER;
+    $password = DB_PASSWORD;
     try {
-        $bdd = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+        $bdd = new PDO("mysql:host=$host;port=$port;dbname=$dbname;charset=utf8", $username, $password);
     } catch (Exception $e) {
         // En cas d'erreur, on affiche un message et on arrête tout
         die('Erreur : '.$e->getMessage());
