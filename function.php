@@ -76,6 +76,25 @@ function recupPseudoPickList($joueur)
 }
 
 /**
+ * Retourne la picklist html avec l'ensemble des noms de maps
+ * @param string
+ *
+ * @return string
+*/
+function recupMapPickList($numeromap)
+{
+    global $bdd;
+    $reponse = $bdd->prepare('SELECT id, name FROM maps WHERE ? like type');
+    $reponse->execute(array($numeromap));
+    $maps = '<select class="form-control" name="'. $numeromap .'">';
+    while ($donnees = $reponse->fetch()) {
+        $maps .= '<option value="'. $donnees['id'] .'">'. $donnees['name'] .'</option>';
+    }
+    $maps .= '</select>';
+    return $maps;
+}
+
+/**
  * Retourne le tableau (de type id => pseudo) de l'ensemble des joueurs de l'équipe
  *
  * @return array
@@ -96,12 +115,13 @@ function recupPseudo()
  *
  * @return int id resultat de la map inséré
 */
-function addNewMapResult($idjoueur1, $idjoueur2, $score1, $score2)
+function addNewMapResult($idmap, $idjoueur1, $idjoueur2, $score1, $score2)
 {
     $score2 = empty($score2) ? intval("0") : $score2;
     $bdd = connectDB();
-    $reponse = $bdd->prepare('INSERT INTO map_result VALUES (NULL, 1, :idjoueur1, :idjoueur2, :score1, :score2)');
+    $reponse = $bdd->prepare('INSERT INTO map_result VALUES (NULL, :idmap, :idjoueur1, :idjoueur2, :score1, :score2)');
     $reponse->execute(array(
+    'idmap' => intval($idmap),
     'idjoueur1' => intval($idjoueur1),
     'idjoueur2' => intval($idjoueur2),
     'score1' => intval($score1),
@@ -138,10 +158,14 @@ function addNewMatch($type, $idjoueur1, $idjoueur2, $map1, $map2, $map3)
 function resultatsMatchs()
 {
     global $bdd;
-    $reponse = $bdd->query('SELECT * FROM match_result');
+    $reponse = $bdd->query('SELECT *, UNIX_TIMESTAMP(date) AS timestamp FROM match_result WHERE UNIX_TIMESTAMP(date) - UNIX_TIMESTAMP(NOW()) <= 604801');
     $pseudos = recupPseudo();
     $tr = "";
     while ($donnees = $reponse->fetch()) {
+      # Skip si le match n'est pas de la semaine en cours.
+      $week_start = strtotime('last monday');
+      if ($donnees['timestamp'] < $week_start)
+          continue;
       foreach ($pseudos as $id => $pseudo) {
         if($donnees['player1'] == $id){
           $player1 = $pseudo;

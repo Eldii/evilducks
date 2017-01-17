@@ -71,11 +71,9 @@
     <!-- /.container -->
   </nav>
 
-
   <!-- Header -->
   <div class="intro-header">
     <div class="container">
-
       <div class="row">
         <div class="col-lg-12">
           <div class="intro-message">
@@ -116,53 +114,34 @@
                         ?>
                       </div>
                       <div class="form-group">
-                        <div class="col-xs-4">
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-lg-2 col-sm-3">
                           <label class="libellemap">Map 1 :</label>
-                          <div class="row">
-                            <div class="col-xs-2">
-                              <input type="text" class="form-control score" name="scoremap1j1" id="scorejoueur1" placeholder="16" required>
+                              <input type="text" class="form-control score" style="display:inline;" name="scoremap1j1" id="scorejoueur1" placeholder="16" required>
+                              <input type="text" class="form-control score" style="display:inline;" name="scoremap1j2" id="scorejoueur1" placeholder="0" required>
+                              <br/>
+                              <br/>
+                              <?php echo recupMapPickList("aim") ?>
                             </div>
-                            <div class="col-xs-1">
-                            </div>
-                            <div class="col-xs-2">
-                              <input type="text" class="form-control score" name="scoremap1j2" id="scorejoueur1" placeholder="0" required>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-xs-4">
+                            <div class="col-lg-2 col-sm-3">
                           <label class="libellemap">Map 2 :</label>
-                          <div class="row">
-                            <div class="col-xs-2">
-                              <input type="text" class="form-control score" name="scoremap2j1" id="scorejoueur1" placeholder="16" required>
+                              <input type="text" class="form-control score" style="display:inline;" name="scoremap2j1" id="scorejoueur1" placeholder="16" required>
+                              <input type="text" class="form-control score" style="display:inline;" name="scoremap2j2" id="scorejoueur1" placeholder="0" required>
+                              <br/>
+                              <br/>
+                              <?php echo recupMapPickList("awp") ?>
                             </div>
-                            <div class="col-xs-1">
-                            </div>
-                            <div class="col-xs-2">
-                              <input type="text" class="form-control score" name="scoremap2j2" id="scorejoueur1" placeholder="0" required>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-xs-4">
+                              <div class="col-lg-2 col-sm-3">
                           <label class="libellemap">Map 3 :</label>
-                          <div class="row">
-                            <div class="col-xs-2">
-                              <input type="text" class="form-control score" name="scoremap3j1" id="scorejoueur1" placeholder="0">
+                              <input type="text" class="form-control score" style="display:inline;" name="scoremap3j1" id="scorejoueur1" placeholder="0">
+                              <input type="text" class="form-control score" style="display:inline;" name="scoremap3j2" id="scorejoueur1" placeholder="0">
+                              <br/>
+                              <br/>
+                              <?php echo recupMapPickList("pistol") ?>
                             </div>
-                            <div class="col-xs-1">
                             </div>
-                            <div class="col-xs-2">
-                              <input type="text" class="form-control score" name="scoremap3j2" id="scorejoueur1" placeholder="0">
-                            </div>
-                          </div>
                         </div>
-                      </div>
-                      <br/>
-                      <br/>
-                      <br/>
-                      <br/>
-                      <div class="form-group">
-                        <label for="score">Maps jouées (dans l'ordre en les séparant par des virgules) :</label>
-                        <input type="text" class="form-control" name="maps" id="maps" placeholder="Exemple : aim_map, aim_pistol, awp_lego" style="display: inline;">
                       </div>
                       <button type="submit" class="btn btn-default">Submit</button>
                     </form>
