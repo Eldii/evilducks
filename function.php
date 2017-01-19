@@ -281,10 +281,7 @@ function ranking()
             if (!$data["map$x"])
                 break ;
 
-            $sql_query = $bdd->prepare(
-                "SELECT match_result.id, match_result.map1, map_result.id, map_result.score_p1, map_result.score_p2 FROM match_result, map_result WHERE match_result.id = :match_id AND match_result.map1 = :map_id"
-            );
-            $sql_query->bindParam(':match_id', $data['id']);
+            $sql_query = $bdd->prepare("SELECT * FROM map_result WHERE id = :map_id");
             $sql_query->bindParam(':map_id', $data["map$x"]);
             $sql_query->execute();
             $map = $sql_query->fetch();
