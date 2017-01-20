@@ -174,14 +174,55 @@ function resultatsMatchs()
           $player2 = $pseudo;
         }
       }
-      $score = afficherScoreGeneral(intval($donnees['map1']), intval($donnees['map2']), intval($donnees['map3']));
+      $scoregeneral = afficherScoreGeneral(intval($donnees['map1']), intval($donnees['map2']), intval($donnees['map3']));
+      $scoremap1 = explode("-", afficherScoreUneMap(intval($donnees['map1'])));
+      $scoremap2 = explode("-", afficherScoreUneMap(intval($donnees['map2'])));
+      $scoremap3 = !empty(afficherScoreUneMap(intval($donnees['map3']))) ? explode("-", afficherScoreUneMap(intval($donnees['map3']))) : "";
+      $nommap1 = afficherNomMap(intval($donnees['map1']));
+      $nommap2 = afficherNomMap(intval($donnees['map2']));
+      $nommap3 = !empty($scoremap3) ? afficherNomMap(intval($donnees['map3'])) : "";
       $tr .= '<tr>
         <td>'. $player1 .'</td>
         <td>'. $player2 .'</td>
-        <td>'. $score .'</td>
+        <td>'. $scoregeneral .'</td>
+      </tr><div class="details">
+      <tr class="details">
+        <td>'. $nommap1 .'</td>
+        <td>'. $scoremap1[0] .'</td>
+        <td>'. $scoremap1[1] .'</td>
+      </tr>
+      <tr class="details">
+        <td>'. $nommap2 .'</td>
+        <td>'. $scoremap2[0] .'</td>
+        <td>'. $scoremap2[1] .'</td>
       </tr>';
+      if(!empty($scoremap3)){
+        $tr .= '
+        <tr class="details">
+          <td>'. $nommap3 .'</td>
+          <td>'. $scoremap3[0] .'</td>
+          <td>'. $scoremap3[1] .'</td>
+        </tr>';
+      }
     }
     return $tr;
+}
+
+/**
+ * Retourne le nom d'une map
+ *
+ * @param id de la map
+ * @return string
+*/
+function afficherNomMap($map)
+{
+    global $bdd;
+    $reponse = $bdd->prepare('SELECT maps.name as map FROM map_result, maps WHERE map_result.map like maps.id AND map_result.id like ?');
+    $reponse->execute(array(intval($map)));
+    while ($donnees = $reponse->fetch()) {
+        $nommap = $donnees['map'];
+    }
+    return $nommap;
 }
 
 /**

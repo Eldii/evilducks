@@ -24,6 +24,12 @@
   <!-- Custom Fonts -->
   <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+  <!-- jQuery -->
+  <script src="js/jquery.js"></script>
+
+  <!-- Bootstrap Core JavaScript -->
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/accueil.js"></script>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -217,39 +223,65 @@
 
 <a  name="resultats"></a>
 <div class="content-section-a">
-
   <div class="container">
 
     <div class="row">
       <div class="col-lg-5 col-sm-6">
         <hr class="section-heading-spacer">
         <div class="clearfix"></div>
-        <h2 class="section-heading">Derniers matchs joués</h2>
-        <?php
-        $rankings = ranking();
-        $matchsjoue = 0;
-        foreach($rankings as $pseudo => $score){
-              if($score == -1){
-                $matchsjoue++;
-              }
-        }
-        if($matchsjoue == count($rankings)){
-          echo "<p> Aucun match n'a été joué </p>";
-        }else{
-          echo '<table class="table">
-            <thead>
-              <tr>
-                <th>Pseudo1</th>
-                <th>Pseudo2</th>
-                <th>Score</th>
-              </tr>
-            </thead>
-            <tbody>'.
-              resultatsMatchs()
-            .'</tbody>
-          </table>';
-        }
-          ?>
+        <h2 class="section-heading">Matchs de la semaine</h2>
+        <div class="panel panel-primary">
+					<div class="panel-heading">
+            <br/>
+						<div class="pull-right">
+							<span class="clickable filter" data-toggle="tooltip" title="Toggle table filter" data-container="body">
+								<i class="glyphicon glyphicon-filter"></i>
+							</span>
+						</div>
+					</div>
+					<div class="panel-body">
+						<input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Chercher un joueur" />
+					</div>
+          <?php
+          $rankings = ranking();
+          $matchsjoue = 0;
+          foreach($rankings as $pseudo => $score){
+                if($score == -1){
+                  $matchsjoue++;
+                }
+          }
+          if($matchsjoue == count($rankings)){
+            echo "<p> Aucun match n'a été joué </p>";
+          }else{
+            echo'
+            <table class="table table-hover" id="dev-table">
+  						<thead>
+  							<tr>
+  								<th>Pseudo1</th>
+  								<th>Pseudo2</th>
+  								<th>Score</th>
+  							</tr>
+  						</thead>
+              <tbody>'.
+                resultatsMatchs()
+              .'</tbody>
+  					</table>
+            ';
+            // echo '<table class="table">
+            //   <thead>
+            //     <tr>
+            //       <th>Pseudo1</th>
+            //       <th>Pseudo2</th>
+            //       <th>Score</th>
+            //     </tr>
+            //   </thead>
+            //   <tbody>'.
+            //     resultatsMatchs()
+            //   .'</tbody>
+            // </table>';
+          }
+            ?>
+				</div>
       </div>
       <div class="col-lg-5 col-lg-offset-2 col-sm-6">
         <hr class="section-heading-spacer">
@@ -356,12 +388,6 @@
       </div>
     </div>
   </footer>
-
-  <!-- jQuery -->
-  <script src="js/jquery.js"></script>
-
-  <!-- Bootstrap Core JavaScript -->
-  <script src="js/bootstrap.min.js"></script>
 
 </body>
 

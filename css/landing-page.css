@@ -274,3 +274,22 @@ label{
   color: #333;
   font-family: Tahoma, Arial, sans-serif;
 }
+
+.clickable{
+    cursor: pointer;
+}
+
+.panel-heading div {
+  margin-top: -18px;
+  font-size: 15px;
+}
+.panel-heading div span{
+  margin-left:5px;
+}
+.panel-body{
+  display: none;
+}
+
+.details{
+  display: none;
+}
