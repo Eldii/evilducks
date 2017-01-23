@@ -181,11 +181,11 @@ function resultatsMatchs()
       $nommap1 = afficherNomMap(intval($donnees['map1']));
       $nommap2 = afficherNomMap(intval($donnees['map2']));
       $nommap3 = !empty($scoremap3) ? afficherNomMap(intval($donnees['map3'])) : "";
-      $tr .= '<tr>
+      $tr .= '<tr class="match" style="cursor: crosshair;">
         <td>'. $player1 .'</td>
         <td>'. $player2 .'</td>
         <td>'. $scoregeneral .'</td>
-      </tr><div class="details">
+      </tr>
       <tr class="details">
         <td>'. $nommap1 .'</td>
         <td>'. $scoremap1[0] .'</td>

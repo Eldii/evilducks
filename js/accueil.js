@@ -7,6 +7,7 @@
 *
 *	The important attributes are 'data-action="filter"' and 'data-filters="#table-selector"'
 */
+
 (function(){
     'use strict';
 	var $ = jQuery;
@@ -55,4 +56,14 @@ $(function(){
 		}
 	});
 	$('[data-toggle="tooltip"]').tooltip();
+})
+
+
+$(function(){
+    $('.container').on('click', '.match', function(e){
+  		$(this).next(".details").toggle();
+  		$(this).next(".details").next(".details").toggle();
+      $(this).next(".details").next(".details").next(".details").toggle();
+  	});
+  	$('[data-toggle="tooltip"]').tooltip();
 })

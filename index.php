@@ -25,7 +25,7 @@
   <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
   <!-- jQuery -->
-  <script src="js/jquery.js"></script>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
   <!-- Bootstrap Core JavaScript -->
   <script src="js/bootstrap.min.js"></script>
@@ -220,11 +220,9 @@
 
 </div>
 <!-- /.content-section-b -->
-
 <a  name="resultats"></a>
 <div class="content-section-a">
   <div class="container">
-
     <div class="row">
       <div class="col-lg-5 col-sm-6">
         <hr class="section-heading-spacer">
@@ -239,7 +237,7 @@
 							</span>
 						</div>
 					</div>
-					<div class="panel-body">
+          <div class="panel-body">
 						<input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Chercher un joueur" />
 					</div>
           <?php

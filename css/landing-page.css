@@ -292,4 +292,6 @@ label{
 
 .details{
   display: none;
+  border-collapse:collapse;
+  cursor: crosshair;
 }
