@@ -290,8 +290,11 @@ label{
   display: none;
 }
 
+.match{
+  cursor: pointer;
+}
+
 .details{
   display: none;
   border-collapse:collapse;
-  cursor: crosshair;
 }
