@@ -187,21 +187,21 @@ function resultatsMatchs()
         <td>'. $scoregeneral .'</td>
       </tr>
       <tr class="details info">
-        <td>'. $nommap1 .'</td>
         <td>'. $scoremap1[0] .'</td>
         <td>'. $scoremap1[1] .'</td>
+        <td>'. $nommap1 .'</td>
       </tr>
       <tr class="details info">
-        <td>'. $nommap2 .'</td>
         <td>'. $scoremap2[0] .'</td>
         <td>'. $scoremap2[1] .'</td>
+        <td>'. $nommap2 .'</td>
       </tr>';
       if(!empty($scoremap3)){
         $tr .= '
         <tr class="details info">
-          <td>'. $nommap3 .'</td>
           <td>'. $scoremap3[0] .'</td>
           <td>'. $scoremap3[1] .'</td>
+          <td>'. $nommap3 .'</td>
         </tr>';
       }
     }
