@@ -183,25 +183,25 @@ function resultatsMatchs()
       $nommap3 = !empty($scoremap3) ? afficherNomMap(intval($donnees['map3'])) : "";
       $tr .= '<tr class="match">
         <td>'. $player1 .'</td>
-        <td>'. $player2 .'</td>
         <td>'. $scoregeneral .'</td>
+        <td>'. $player2 .'</td>
       </tr>
       <tr class="details info">
         <td>'. $scoremap1[0] .'</td>
-        <td>'. $scoremap1[1] .'</td>
         <td>'. $nommap1 .'</td>
+        <td>'. $scoremap1[1] .'</td>
       </tr>
       <tr class="details info">
         <td>'. $scoremap2[0] .'</td>
-        <td>'. $scoremap2[1] .'</td>
         <td>'. $nommap2 .'</td>
+        <td>'. $scoremap2[1] .'</td>
       </tr>';
       if(!empty($scoremap3)){
         $tr .= '
         <tr class="details info">
           <td>'. $scoremap3[0] .'</td>
-          <td>'. $scoremap3[1] .'</td>
           <td>'. $nommap3 .'</td>
+          <td>'. $scoremap3[1] .'</td>
         </tr>';
       }
     }

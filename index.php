@@ -256,8 +256,8 @@
   						<thead>
   							<tr>
   								<th>Pseudo1</th>
-  								<th>Pseudo2</th>
   								<th>Score</th>
+  								<th>Pseudo2</th>
   							</tr>
   						</thead>
               <tbody>'.
