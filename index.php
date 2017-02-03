@@ -224,32 +224,59 @@
       <div class="col-lg-5 col-sm-6">
         <hr class="section-heading-spacer">
         <div class="clearfix"></div>
-        <h2 class="section-heading">Derniers matchs joués</h2>
-        <?php
-        $rankings = ranking();
-        $matchsjoue = 0;
-        foreach($rankings as $pseudo => $score){
-              if($score == -1){
-                $matchsjoue++;
-              }
-        }
-        if($matchsjoue == count($rankings)){
-          echo "<p> Aucun match n'a été joué </p>";
-        }else{
-          echo '<table class="table">
-            <thead>
-              <tr>
-                <th>Pseudo1</th>
-                <th>Pseudo2</th>
-                <th>Score</th>
-              </tr>
-            </thead>
-            <tbody>'.
-              resultatsMatchs()
-            .'</tbody>
-          </table>';
-        }
-          ?>
+        <h2 class="section-heading">Matchs de la semaine</h2>
+        <div class="panel panel-primary">
+					<div class="panel-heading">
+            <br/>
+						<div class="pull-right">
+							<span class="clickable filter" data-toggle="tooltip" title="Toggle table filter" data-container="body">
+								<i class="glyphicon glyphicon-filter"></i>
+							</span>
+						</div>
+					</div>
+          <div class="panel-body">
+						<input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Chercher un joueur" />
+					</div>
+          <?php
+          $rankings = ranking();
+          $matchsjoue = 0;
+          foreach($rankings as $pseudo => $score){
+                if($score == -1){
+                  $matchsjoue++;
+                }
+          }
+          if($matchsjoue == count($rankings)){
+            echo "<p> Aucun match n'a été joué </p>";
+          }else{
+            echo'
+            <table class="table table-hover" id="dev-table">
+  						<thead>
+  							<tr>
+  								<th>Pseudo1</th>
+  								<th>Score</th>
+  								<th>Pseudo2</th>
+  							</tr>
+  						</thead>
+              <tbody>'.
+                resultatsMatchs()
+              .'</tbody>
+  					</table>
+            ';
+            // echo '<table class="table">
+            //   <thead>
+            //     <tr>
+            //       <th>Pseudo1</th>
+            //       <th>Pseudo2</th>
+            //       <th>Score</th>
+            //     </tr>
+            //   </thead>
+            //   <tbody>'.
+            //     resultatsMatchs()
+            //   .'</tbody>
+            // </table>';
+          }
+            ?>
+				</div>
       </div>
       <div class="col-lg-5 col-lg-offset-2 col-sm-6">
         <hr class="section-heading-spacer">
