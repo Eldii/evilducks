@@ -24,6 +24,12 @@
   <!-- Custom Fonts -->
   <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+  <!-- Bootstrap Core JavaScript -->
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/accueil.js"></script>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -214,12 +220,9 @@
 
 </div>
 <!-- /.content-section-b -->
-
 <a  name="resultats"></a>
 <div class="content-section-a">
-
   <div class="container">
-
     <div class="row">
       <div class="col-lg-5 col-sm-6">
         <hr class="section-heading-spacer">
@@ -383,12 +386,6 @@
       </div>
     </div>
   </footer>
-
-  <!-- jQuery -->
-  <script src="js/jquery.js"></script>
-
-  <!-- Bootstrap Core JavaScript -->
-  <script src="js/bootstrap.min.js"></script>
 
 </body>
 
