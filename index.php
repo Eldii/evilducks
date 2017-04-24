@@ -1,3 +1,6 @@
+<?php
+    require ('steamauth/steamauth.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -69,6 +72,15 @@
           </li>
           <li>
             <a href="#resultats">Résultats et Classement</a>
+          </li>
+          <li><?php
+            if(!isset($_SESSION['steamid'])) {
+                loginbutton();
+            	echo "</div>";
+            	}  else {
+                include ('steamauth/userInfo.php');
+                echo $steamprofile['personaname'];
+              }?>
           </li>
         </ul>
       </div>
