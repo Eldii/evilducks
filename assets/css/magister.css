@@ -98,6 +98,18 @@ body {
 	padding:10px 8px 10px 12px;
 }
 
+.navbar-default .navbar-nav>li>a{
+	font-weight:bold;
+}
+
+.fieldmenu{
+	margin-right: 2%;
+}
+
+.section > .container{
+		background-color: rgba(128, 128, 128, 0.8);
+}
+
 
 
 /********************************************************/

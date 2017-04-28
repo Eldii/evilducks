@@ -205,6 +205,10 @@ p.copyright {
     margin-left: 2%;
 }
 
+.compteurheures{
+  margin-left: -10%;
+}
+
 .heures {
     font-size: 500%; /* Paragraphes de 14 pixels */
     color: black;

@@ -1,3 +1,6 @@
+<?php
+    require ('steamauth/steamauth.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,15 +9,17 @@
 	<meta name="description" content="">
 	<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
 
-	<title>Magister - Free html5 template by GetTemplate</title>
+	<title>Evilducks Team - Quack !</title>
 
-	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
+	<!-- Favicon -->
+  <link rel="icon" type="image/jpg" href="img/favicon.jpg" />
 
 	<!-- Bootstrap itself -->
 	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 
 	<!-- Custom styles -->
 	<link rel="stylesheet" href="assets/css/magister.css">
+	<link href="css/landing-page.css" rel="stylesheet">
 
 	<!-- Fonts -->
 	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -23,16 +28,47 @@
 
 <!-- use "theme-invert" class on bright backgrounds, also try "text-shadows" class -->
 <body class="theme-invert" onload="background_reload()">
+	<?php
+  require("function.php");
+  ?>
 
-	<nav class="navbar navbar-inverse bg-inverse" style="opacity: 0.5;">
-  <!-- Navbar content -->
-</nav>
+	<nav class="navbar navbar-default navbar-fixed-top topnav menu" style="opacity: 0.5;">
+		<div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+        <strong><p> Evilducks </p></strong>
+      </a>
+    </div>
+		<div class="collapse navbar-collapse fieldmenu" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right liste">
+				<li>
+					<a href="#head">Règles</a>
+				</li>
+				<li>
+					<a href="#about">Récompense</a>
+				</li>
+				<li>
+					<a href="#themes">Résultats et Classement</a>
+				</li>
+				<button type="button" class="btn btn-default navbar-btn">Sign in</button>
+				<!-- <li><?php
+					if(!isset($_SESSION['steamid'])) {
+							loginbutton();
+						echo "</div>";
+						}  else {
+							include ('steamauth/userInfo.php');
+							echo $steamprofile['personaname'];
+						}?>
+				</li> -->
+			</ul>
+		</div>
+  </div>
+	</nav>
 
-<nav class="mainmenu">
+<!-- <nav class="mainmenu">
 	<div class="container">
 		<div class="dropdown">
 			<button type="button" class="navbar-toggle" data-toggle="dropdown"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-			<!-- <a data-toggle="dropdown" href="#">Dropdown trigger</a> -->
 			<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 				<li><a href="#head" class="active">Hello</a></li>
 				<li><a href="#about">About me</a></li>
@@ -41,7 +77,7 @@
 			</ul>
 		</div>
 	</div>
-</nav>
+</nav> -->
 
 
 <!-- Main (Home) section -->
@@ -52,14 +88,61 @@
 			<div class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1 text-center">
 
 				<!-- Site Title, your name, HELLO msg, etc. -->
-				<h1 class="title">Magister</h1>
-				<h2 class="subtitle">Free html5 template by GetTemplate</h2>
+				<h1 class="title">Tournoi CSGO</h1>
+				<h2 class="subtitle">Un tournoi réservé exclusivement au membres de la team Evilducks</h2>
 
 				<!-- Short introductory (optional) -->
-				<h3 class="tagline">
-					Potentially, the best place to tell people why they are here.<br>
-					So, this is a demo page built to showcase the beauty of the template.
-				</h3>
+				<div class="content-section-c">
+					<div class="container compteurheures">
+
+			      <div class="row">
+			        <?php
+			        $tempsdejeu = tempsdejeu();
+			        $premiereCle = current($tempsdejeu);
+			        end($tempsdejeu);
+			        $derniereCle = key($tempsdejeu);
+			        foreach ($tempsdejeu as $pseudo => $hours) {
+			          if ($pseudo == $derniereCle) {
+			            echo '
+			            <div class="col-lg-2 col-sm-6 compteur">
+			            <h2 class="pseudo">'.$pseudo.'</h2>
+			            <div class="lastcircle">
+			            <p class="heures">'
+			            .$hours.
+			            '</p><br /> <br /> <br />
+			            <p class="heurestexte"> Heures </p>
+			            </div>
+			            </div>';
+			          } elseif ($hours == $premiereCle) {
+			            echo '
+			            <div class="col-lg-2 col-sm-6 compteur">
+			            <h2 class="pseudo">'.$pseudo.'</h2>
+			            <div class="firstcircle">
+			            <p class="heures">'
+			            .$hours.
+			            '</p><br /> <br /> <br />
+			            <p class="heurestexte"> Heures </p>
+			            </div>
+			            </div>';
+			          } else {
+			            echo '
+			            <div class="col-lg-2 col-sm-6 compteur">
+			            <h2 class="pseudo">'.$pseudo.'</h2>
+			            <div class="circle multi-line">
+			            <p class="heures">'
+			            .$hours.
+			            '</p><br /> <br /> <br />
+			            <p class="heurestexte"> Heures </p>
+			            </div>
+			            </div>';
+			          }
+			        }
+			        ?>
+			      </div>
+			    </div>
+			    <!-- /.container -->
+
+			  </div>
 
 				<!-- Nice place to describe your site in a sentence or two -->
 				<p><a href="/download/" class="btn btn-default btn-lg">Download template now</a></p>
