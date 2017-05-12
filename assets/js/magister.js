@@ -36,7 +36,7 @@ setInterval(function(){ randomBg();}, 3000);
 jQuery(document).ready(function($) {
 
 	// Switch section
-	$("a", '.menu').click(function()
+	$("a", '.menu').not(".btn").click(function()
 	{
 		if( ! $(this).hasClass('active') ) {
 			current_item = this;

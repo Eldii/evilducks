@@ -107,7 +107,7 @@ body {
 }
 
 .section > .container{
-		background-color: rgba(128, 128, 128, 0.8);
+		background-color: rgba(255, 255, 255, 0.5);
 }
 
 
@@ -119,15 +119,14 @@ body {
 	z-index: 1;
 	min-height:420px;
 	width: 100%;
-	overflow:auto;
 	height:100%;
-	padding-top:100px;
+	/*padding-top:100px;*/
 	padding-bottom:50px;
 	display:none;
 	top:0;
 }
 @media (min-width: 768px) {
-	.section { padding-top:160px;}
+	/*.section { padding-top:160px;}*/
 }
 
 /* Show one of sections */
@@ -150,17 +149,15 @@ a:hover, a:active { color:#fff; text-decoration: underline; }
 .title,
 .subtitle {
 	font-family: 'Wire One', Helvetica, Arial, sans-serif;
-	font-weight:normal;
-	font-size:7em;
+	font-size:6em;
 	margin-bottom:15px;
 	color:#FDF9F4;
 	line-height:1em;
 }
 .subtitle {
 	line-height:.9em;
-	font-size:5.5em;
+	font-size:4.5em;
 	margin-top:0;
-	margin-bottom:40px;
 }
 .tagline {
 	font-size:1.4em;

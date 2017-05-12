@@ -32,26 +32,29 @@
   require("function.php");
   ?>
 
-	<nav class="navbar navbar-default navbar-fixed-top topnav menu" style="opacity: 0.5;">
+	<nav class="navbar navbar-default topnav menu" style="opacity: 0.5;">
 		<div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="#head">
         <strong><p> Evilducks </p></strong>
       </a>
     </div>
 		<div class="collapse navbar-collapse fieldmenu" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right liste">
 				<li>
-					<a href="#head">Règles</a>
+					<a href="#regles">Règles</a>
 				</li>
 				<li>
-					<a href="#about">Récompense</a>
+					<a href="#recompenses">Récompense</a>
 				</li>
 				<li>
-					<a href="#themes">Résultats et Classement</a>
+					<a href="#resultats">Résultats et Classement</a>
 				</li>
-				<button type="button" class="btn btn-default navbar-btn">Sign in</button>
-				<!-- <li><?php
+        <li>
+					<a href="#themes">Vidéo Youtube</a>
+				</li>
+				<!-- <button type="button" class="btn btn-default navbar-btn">Sign in</button> -->
+				<li><?php
 					if(!isset($_SESSION['steamid'])) {
 							loginbutton();
 						echo "</div>";
@@ -59,7 +62,7 @@
 							include ('steamauth/userInfo.php');
 							echo $steamprofile['personaname'];
 						}?>
-				</li> -->
+				</li>
 			</ul>
 		</div>
   </div>
@@ -104,7 +107,7 @@
 			        foreach ($tempsdejeu as $pseudo => $hours) {
 			          if ($pseudo == $derniereCle) {
 			            echo '
-			            <div class="col-lg-2 col-sm-6 compteur">
+			            <div class="col-lg-2 col-sm-5 compteur">
 			            <h2 class="pseudo">'.$pseudo.'</h2>
 			            <div class="lastcircle">
 			            <p class="heures">'
@@ -115,7 +118,7 @@
 			            </div>';
 			          } elseif ($hours == $premiereCle) {
 			            echo '
-			            <div class="col-lg-2 col-sm-6 compteur">
+			            <div class="col-lg-2 col-sm-5 compteur">
 			            <h2 class="pseudo">'.$pseudo.'</h2>
 			            <div class="firstcircle">
 			            <p class="heures">'
@@ -126,7 +129,7 @@
 			            </div>';
 			          } else {
 			            echo '
-			            <div class="col-lg-2 col-sm-6 compteur">
+			            <div class="col-lg-2 col-sm-5 compteur">
 			            <h2 class="pseudo">'.$pseudo.'</h2>
 			            <div class="circle multi-line">
 			            <p class="heures">'
@@ -145,7 +148,12 @@
 			  </div>
 
 				<!-- Nice place to describe your site in a sentence or two -->
-				<p><a href="/download/" class="btn btn-default btn-lg">Download template now</a></p>
+        <br/>
+        <ul class="list-inline intro-social-buttons">
+          <li>
+            <a href="https://github.com/Eldii/Evilducks/" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+          </li>
+        </ul>
 
 			</div> <!-- /col -->
 		</div> <!-- /row -->
@@ -154,20 +162,114 @@
 </section>
 
 <!-- Second (About) section -->
-<section class="section" id="about">
+<section class="section" id="recompenses">
 	<div class="container">
 
-		<h2 class="text-center title">About me</h2>
-		<div class="row">
+		<h2 class="text-center title">Recompenses</h2>
+    <div class="row">
 			<div class="col-sm-4 col-sm-offset-2">
-				<h5><strong>Where's my lorem ipsum?<br></strong></h5>
-				<p>Well, here it is: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum, ullam, ducimus, eaque, ex autem est dolore illo similique quasi unde sint rerum magnam quod amet iste dolorem ad laudantium molestias enim quibusdam inventore totam fugit eum iusto ratione alias deleniti suscipit modi quis nostrum veniam fugiat debitis officiis impedit ipsum natus ipsa. Doloremque, id, at, corporis, libero laborum architecto mollitia molestiae maxime aut deserunt sed perspiciatis quibusdam praesentium consectetur in sint impedit voluptates! Deleniti, sequi voluptate recusandae facere nostrum?</p>
+        <img class="img-responsive" src="img/recompense.png" alt="">
 			</div>
 			<div class="col-sm-4">
-				<h5><strong>More, more lipsum!<br></strong></h5>
-				<p>Tempore, eos, voluptatem minus commodi error aut eaque neque consequuntur optio nesciunt quod quibusdam. Ipsum, voluptatibus, totam, modi perspiciatis repudiandae odio ad possimus molestias culpa optio eaque itaque dicta quod cupiditate reiciendis illo illum aspernatur ducimus praesentium quae porro alias repellat quasi cum fugiat accusamus molestiae exercitationem amet fugit sint eligendi omnis adipisci corrupti. Aspernatur.</p>
-				<h5><strong>Author links<br></strong></h5>
-				<p><a href="http://be.net/pozhilov9409">Behance</a> / <a href="https://twitter.com/serggg">Twitter</a> / <a href="http://linkedin.com/pozhilov">LinkedIn</a> / <a href="https://www.facebook.com/pozhilov">Facebook</a></p>
+        <div class="clearfix"></div>
+        <p class="lead">Le premier du classement gagne le droit de ne pas seek de toute la semaine. Les récompenses évolueront au fur et à mesure si je/on trouve des meilleures idées :D.</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Third (Regles) section -->
+<section class="section" id="regles">
+	<div class="container">
+
+		<h2 class="text-center title">Règles de la cup</h2>
+		<div class="row">
+			<div class="col-sm-4 col-sm-offset-2">
+        <img class="img-responsive" src="img/rules.png" alt="">
+			</div>
+			<div class="col-sm-4">
+        <h2 class="section-heading">Les règles</h2>
+        <p class="lead">Les règles du jeu sont très simple le but est de gagner le plus de match contre l'ensemble des joueurs de l'équipe. <br/>Chaque semaine les joueurs de la team des vilains canards (Coach et last compris) s'inscrivent au tournoi sur le site. <br/> Les matchs sont définis par des BO3 (Aim map, Awp Map et Pistol Map). Le gagnant du BO3 remporte 3 points dans le classement. <br/><br/>Arrangez vous comme vous voulez pour jouer ces matchs, le mieux serait de les faire avant les matchs de 21h pour être bien chaud le soir par exemple.</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Third (Resultats) section -->
+<section class="section" id="resultats">
+	<div class="container">
+
+		<h2 class="text-center title">Resultats</h2>
+		<div class="row">
+			<div class="col-sm-4 col-sm-offset-2">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <br/>
+            <div class="pull-right">
+              <span class="clickable filter" data-toggle="tooltip" title="Toggle table filter" data-container="body">
+                <i class="glyphicon glyphicon-filter"></i>
+              </span>
+            </div>
+          </div>
+          <div class="panel-body">
+            <input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Chercher un joueur" />
+          </div>
+          <?php
+          $rankings = ranking();
+          $matchsjoue = 0;
+          foreach($rankings as $pseudo => $score){
+                if($score == -1){
+                  $matchsjoue++;
+                }
+          }
+          if($matchsjoue == count($rankings)){
+            echo "<p> Aucun match n'a été joué </p>";
+          }else{
+            echo'
+            <table class="table table-hover" id="dev-table">
+              <thead>
+                <tr>
+                  <th>Pseudo1</th>
+                  <th>Score</th>
+                  <th>Pseudo2</th>
+                </tr>
+              </thead>
+              <tbody>'.
+                resultatsMatchs()
+              .'</tbody>
+            </table>
+            ';
+            // echo '<table class="table">
+            //   <thead>
+            //     <tr>
+            //       <th>Pseudo1</th>
+            //       <th>Pseudo2</th>
+            //       <th>Score</th>
+            //     </tr>
+            //   </thead>
+            //   <tbody>'.
+            //     resultatsMatchs()
+            //   .'</tbody>
+            // </table>';
+          }
+            ?>
+        </div>
+			</div>
+			<div class="col-sm-4">
+        <div class="clearfix"></div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Pseudo</th>
+              <th>Points</th
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              afficherClassement();
+              ?>
+            </tbody>
+          </table>
 			</div>
 		</div>
 	</div>
@@ -177,10 +279,10 @@
 <section class="section" id="themes">
 	<div class="container">
 
-		<h2 class="text-center title">More Themes</h2>
+		<h2 class="text-center title">Chaîne EvilDucks</h2>
 		<p class="lead text-center">
-			Huge thank you to all people who publish<br>
-			their photos at <a href="http://unsplash.com">Unsplash</a>, thank you guys!
+			Bienvenue sur la chaîne evilducks ici vous pouvez voir toutes les vidéos posté sur la chaîne youtube de l'équipe<br>
+			Rdv à cette adresse pour allez directement sur la chaîne youtube <a href="https://www.youtube.com/channel/UCQ6rxG5fVR24FAp1NOdEppQ">Evilducks</a>
 		</p>
 		<div class="row">
 			<div class="col-sm-4 col-sm-offset-2">
@@ -258,5 +360,6 @@
 <script src="assets/js/modernizr.custom.72241.js"></script>
 <!-- Custom template scripts -->
 <script src="assets/js/magister.js"></script>
+<script src="js/accueil.js"></script>
 </body>
 </html>
