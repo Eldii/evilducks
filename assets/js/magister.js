@@ -51,3 +51,19 @@ jQuery(document).ready(function($) {
 		return false;
 	});
 });
+
+$(".incremente").click(function(){
+  var url = '/traitement_bootcamp.php';
+// On execute le script php et on attend sa réponse
+  $.post(url, {type: "incremente"}, function(data){
+    $('.compteur_bootcamp').val(data);
+  })
+});
+
+$(".decremente").click(function(){
+  var url = '/traitement_bootcamp.php';
+// On execute le script php et on attend sa réponse
+  $.post(url, {type: "decremente"}, function(data){
+    $('.compteur_bootcamp').val(data);
+  })
+});

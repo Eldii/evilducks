@@ -359,3 +359,34 @@ function afficherClassement()
         }
       }
 }
+
+/**
+ * Fonction qui retourne le compteur du bootcampomètre
+ *
+*/
+function afficheCompteurBootcamp()
+{
+    $sql_query = $bdd->prepare('SELECT compteur FROM bootcamp');
+    $sql_query->execute();
+    $compteur = $sql_query->fetch();
+    return $compteur;
+}
+
+
+/**
+ * Fonction qui incrémente le compteur du bootcampomètre
+ *
+*/
+function incrementeBootcamp()
+{
+    $bdd->exec('UPDATE bootcamp SET compteur = compteur + 1');
+}
+
+/**
+ * Fonction qui décremente le compteur du bootcampomètre
+ *
+*/
+function decrementeBootcamp()
+{
+    $bdd->exec('UPDATE bootcamp SET compteur = compteur - 1');
+}

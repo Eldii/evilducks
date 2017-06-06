@@ -53,6 +53,9 @@
         <li>
 					<a href="#themes">Vidéo Youtube</a>
 				</li>
+        <li>
+					<a href="#bootcamp">BootCampoMètre</a>
+				</li>
 				<!-- <button type="button" class="btn btn-default navbar-btn">Sign in</button> -->
 				<li><?php
 					if(!isset($_SESSION['steamid'])) {
@@ -195,7 +198,7 @@
 	</div>
 </section>
 
-<!-- Third (Resultats) section -->
+<!-- Fourth (Resultats) section -->
 <section class="section" id="resultats">
 	<div class="container">
 
@@ -275,7 +278,7 @@
 	</div>
 </section>
 
-<!-- Third (Works) section -->
+<!-- Fifth (Works) section -->
 <section class="section" id="themes">
 	<div class="container">
 
@@ -331,7 +334,19 @@
 	</div>
 </section>
 
-<!-- Fourth (Contact) section -->
+<!-- Fifth (Works) section -->
+<section class="section" id="bootcamp">
+	<div class="container">
+    <h2 class="text-center title">BootCampoMètre</h2>
+    <figure>
+    <img class="background_bootcamp" src="img/bootcampometre.png" alt="BootCampoMètre de Yeti Erix"/>
+    <figcaption><h2 class="compteur_bootcamp">5</h2>    <button type="button" class="btn btn-primary incremente">Primary</button>
+        <button type="button" class="btn btn-primary decremente">Primary</button></figcaption>
+  </figure>
+	</div>
+</section>
+
+<!-- Sixth (Contact) section -->
 <section class="section" id="contact">
 	<div class="container">
 
