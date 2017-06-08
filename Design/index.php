@@ -131,8 +131,8 @@
             </li>
             <li>
               <a href="https://github.com/Eldii/Evilducks/" class="btn github waves-effect"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
-              <a target="_blank" href="https://mdbootstrap.com/getting-started/" class="btn btn-primary btn-lg">Sign up!</a>
-              <a target="_blank" href="https://mdbootstrap.com/material-design-for-bootstrap/" class="btn btn-default btn-lg">Learn more</a>
+              <a href="" class="btn btn-primary btn-lg">Sign up!</a>
+              <!-- <a target="_blank" href="https://mdbootstrap.com/material-design-for-bootstrap/" class="btn btn-default btn-lg">Learn more</a> -->
             </li>
           </ul>
         </div>
@@ -147,13 +147,13 @@
         <div class="full-bg-img flex-center">
           <ul>
             <li>
-              <h1 class="h1-responsive">Material Design for Bootstrap 4</h1></li>
+              <h1 class="h1-responsive"><?php echo afficheCompteurBootcamp(); ?></h1></li>
               <li>
-                <p>The most powerful and free UI KIT for Bootstrap</p>
+                <p>BootcampOmètre ma frend made in YetiErix</p>
               </li>
               <li>
-                <a target="_blank" href="https://mdbootstrap.com/getting-started/" class="btn btn-primary btn-lg">Sign up!</a>
-                <a target="_blank" href="https://mdbootstrap.com/material-design-for-bootstrap/" class="btn btn-default btn-lg">Learn more</a>
+                <a target="_blank" href="https://mdbootstrap.com/getting-started/" class="btn btn-primary btn-lg">Incrémenter</a>
+                <a target="_blank" href="https://mdbootstrap.com/material-design-for-bootstrap/" class="btn btn-default btn-lg">Décrémenter</a>
               </li>
             </ul>
           </div>

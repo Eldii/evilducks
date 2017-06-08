@@ -366,10 +366,11 @@ function afficherClassement()
 */
 function afficheCompteurBootcamp()
 {
+    global $bdd;
     $sql_query = $bdd->prepare('SELECT compteur FROM bootcamp');
     $sql_query->execute();
     $compteur = $sql_query->fetch();
-    return $compteur;
+    return $compteur['compteur'];
 }
 
 
