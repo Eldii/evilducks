@@ -1,5 +1,16 @@
 /* TEMPLATE STYLES */
 
+/*Demos*/
+.table_demos{
+  color: black;
+  background-color: white;
+  border-color: #fb3;
+  opacity: 0.8;
+}
+
+.bdl{
+  margin-top: 40%;
+}
 
 /* Navigation*/
 

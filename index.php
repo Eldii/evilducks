@@ -28,6 +28,25 @@
 </head>
 
 <body>
+  <?php
+  if(isset($_POST) && !empty($_POST)){
+    telechargeDemo($_POST);
+    //Préparation du header pour le dl
+    header('Content-disposition: attachment; filename="demos/download_demo.zip"');
+    header('Content-Type: application/force-download');
+    header('Content-Transfer-Encoding: application/zip'.'\n'); // Surtout ne pas enlever le \n
+    header('Content-Length: '.filesize("demos/download_demo.zip"));
+    header("Pragma: no-cache");
+    header('Cache-Control: must-revalidate, post-check=0, pre-check=0, public');
+    header('Expires: 0');
+
+    // Efface le tampon de sortie IMPORTANT !!!!!!!!!!!!!!!
+    ob_clean();
+
+    //téléchargement
+    readfile("demos/download_demo.zip");
+  }
+  ?>
 
 
   <!--Navbar-->
@@ -47,145 +66,174 @@
           <li class="nav-item">
             <a class="nav-link" href='#bootcamp'>BootCamp</a>
           </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link">Pricing</a>
+          <li class="nav-item">
+            <a class="nav-link" href='#demos'>Démos Review</a>
           </li>
-          <li class="nav-item btn-group">
-            <a class="nav-link dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-              <a class="dropdown-item">Action</a>
-              <a class="dropdown-item">Another action</a>
-              <a class="dropdown-item">Something else here</a>
+          <!-- <li class="nav-item">
+          <a class="nav-link">Pricing</a>
+        </li>
+        <li class="nav-item btn-group">
+        <a class="nav-link dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <a class="dropdown-item">Action</a>
+        <a class="dropdown-item">Another action</a>
+        <a class="dropdown-item">Something else here</a>
+      </div>
+    </li> -->
+  </ul>
+  <form class="form-inline waves-effect waves-light">
+    <input class="form-control" type="text" placeholder="Search">
+  </form>
+</div>
+</div>
+</nav>
+<!--/.Navbar-->
+
+<video autoplay loop id="bgvid">
+  <source src="img/background.mp4" type="video/mp4">
+  </video>
+  <!--Caption-->
+  <a  name="home"></a>
+  <div class="section carousel-caption active" id="home">
+    <div class="flex-center animated fadeInDown">
+      <ul>
+        <li>
+          <h1 class="h1-responsive">Evilcup : tournoi CSGO</h1></li>
+          <li>
+            <p>Un tournoi réservé exclusivement au membres de la team Evilducks</p>
+          </li>
+          <li>
+            <div class="container compteurheures">
+
+              <div class="row">
+                <?php
+                $tempsdejeu = tempsdejeu();
+                $premiereCle = current($tempsdejeu);
+                end($tempsdejeu);
+                $derniereCle = key($tempsdejeu);
+                foreach ($tempsdejeu as $pseudo => $hours) {
+                  if ($pseudo == $derniereCle) {
+                    echo '
+                    <div class="col-lg-2 col-sm-2 col-xs-1 compteur">
+                    <h2 class="pseudo">'.$pseudo.'</h2>
+                    <div class="lastcircle">
+                    <p class="heures">'
+                    .$hours.
+                    '</p><br /> <br /> <br />
+                    <p class="heurestexte"> Heures </p>
+                    </div>
+                    </div>';
+                  } elseif ($hours == $premiereCle) {
+                    echo '
+                    <div class="col-lg-2 col-sm-2 col-xs-1 compteur">
+                    <h2 class="pseudo">'.$pseudo.'</h2>
+                    <div class="firstcircle">
+                    <p class="heures">'
+                    .$hours.
+                    '</p><br /> <br /> <br />
+                    <p class="heurestexte"> Heures </p>
+                    </div>
+                    </div>';
+                  } else {
+                    echo '
+                    <div class="col-lg-2 col-sm-2 col-xs-1 compteur">
+                    <h2 class="pseudo">'.$pseudo.'</h2>
+                    <div class="circle multi-line">
+                    <p class="heures">'
+                    .$hours.
+                    '</p><br /> <br /> <br />
+                    <p class="heurestexte"> Heures </p>
+                    </div>
+                    </div>';
+                  }
+                }
+                ?>
+              </div>
             </div>
-          </li> -->
+          </li>
+          <li>
+            <a href="https://github.com/Eldii/Evilducks/" class="btn github waves-effect"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+            <a href="" class="btn btn-primary btn-lg">Sign up!</a>
+            <!-- <a target="_blank" href="https://mdbootstrap.com/material-design-for-bootstrap/" class="btn btn-default btn-lg">Learn more</a> -->
+          </li>
         </ul>
-        <form class="form-inline waves-effect waves-light">
-          <input class="form-control" type="text" placeholder="Search">
-        </form>
       </div>
     </div>
-  </nav>
-  <!--/.Navbar-->
-
-  <video autoplay loop id="bgvid">
-    <source src="img/background.mp4" type="video/mp4">
-    </video>
     <!--Caption-->
-    <a  name="home"></a>
-    <div class="section carousel-caption active" id="home">
-      <div class="flex-center animated fadeInDown">
+
+
+    <!--Bootcamp-->
+    <a  name="bootcamp"></a>
+    <div class="carousel-caption section" id="bootcamp">
+      <!--Intro content-->
+      <div class="full-bg-img flex-center">
         <ul>
           <li>
-            <h1 class="h1-responsive">Evilcup : tournoi CSGO</h1></li>
+            <div><?php  echo '
+            <p class="compteur_bootcamp">'
+            .afficheCompteurBootcamp().
+            '</p>'; ?></div></li>
             <li>
-              <p>Un tournoi réservé exclusivement au membres de la team Evilducks</p>
+              <p>BootcampOmètre ma frend made in YetiErix</p>
             </li>
             <li>
-              <div class="container compteurheures">
-
-                <div class="row">
-                  <?php
-                  $tempsdejeu = tempsdejeu();
-                  $premiereCle = current($tempsdejeu);
-                  end($tempsdejeu);
-                  $derniereCle = key($tempsdejeu);
-                  foreach ($tempsdejeu as $pseudo => $hours) {
-                    if ($pseudo == $derniereCle) {
-                      echo '
-                      <div class="col-lg-2 col-sm-2 col-xs-1 compteur">
-                      <h2 class="pseudo">'.$pseudo.'</h2>
-                      <div class="lastcircle">
-                      <p class="heures">'
-                      .$hours.
-                      '</p><br /> <br /> <br />
-                      <p class="heurestexte"> Heures </p>
-                      </div>
-                      </div>';
-                    } elseif ($hours == $premiereCle) {
-                      echo '
-                      <div class="col-lg-2 col-sm-2 col-xs-1 compteur">
-                      <h2 class="pseudo">'.$pseudo.'</h2>
-                      <div class="firstcircle">
-                      <p class="heures">'
-                      .$hours.
-                      '</p><br /> <br /> <br />
-                      <p class="heurestexte"> Heures </p>
-                      </div>
-                      </div>';
-                    } else {
-                      echo '
-                      <div class="col-lg-2 col-sm-2 col-xs-1 compteur">
-                      <h2 class="pseudo">'.$pseudo.'</h2>
-                      <div class="circle multi-line">
-                      <p class="heures">'
-                      .$hours.
-                      '</p><br /> <br /> <br />
-                      <p class="heurestexte"> Heures </p>
-                      </div>
-                      </div>';
-                    }
-                  }
-                  ?>
-                </div>
-              </div>
-            </li>
-            <li>
-              <a href="https://github.com/Eldii/Evilducks/" class="btn github waves-effect"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
-              <a href="" class="btn btn-primary btn-lg">Sign up!</a>
-              <!-- <a target="_blank" href="https://mdbootstrap.com/material-design-for-bootstrap/" class="btn btn-default btn-lg">Learn more</a> -->
+              <button href="" class="btn btn-primary btn-lg incremente">Incrémenter</button>
+              <button href="" class="btn btn-default btn-lg decremente">Décrémenter</button>
             </li>
           </ul>
         </div>
+        <!--/Intro content-->
       </div>
-      <!--Caption-->
+      <!--/.Bootcamp-->
 
-
-      <!--Mask-->
-      <a  name="bootcamp"></a>
-      <div class="carousel-caption section" id="bootcamp">
+      <!--Demos-->
+      <a  name="demos"></a>
+      <div class="carousel-caption section" id="demos">
+        <form method="post" action="">
         <!--Intro content-->
         <div class="full-bg-img flex-center">
-          <ul>
-            <li>
-              <div><?php  echo '
-                                    <p class="compteur_bootcamp">'
-                                    .afficheCompteurBootcamp().
-                                    '</p>'; ?></div></li>
-              <li>
-                <p>BootcampOmètre ma frend made in YetiErix</p>
-              </li>
-              <li>
-                <button href="" class="btn btn-primary btn-lg incremente">Incrémenter</button>
-                <button href="" class="btn btn-default btn-lg decremente">Décrémenter</button>
-              </li>
-            </ul>
-          </div>
-          <!--/Intro content-->
-        </div>
-        <!--/.Mask-->
+          <table class="table table_demos" style="text-align: left;">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Nom</th>
+                <th>Date</th>
+                <th>Taille</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php echo afficheDemo(); ?>
+          </tbody>
+        </table>
+      </div>
+      <input class="btn btn-warning bdl" type="submit" value="Télécharger les démos">
+      </form>
+    </div>
+    <!--/.Demos-->
 
 
-        <!-- SCRIPTS -->
+    <!-- SCRIPTS -->
 
-        <!-- JQuery -->
-        <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <!-- JQuery -->
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 
-        <!-- Bootstrap tooltips -->
-        <script type="text/javascript" src="js/tether.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="js/tether.min.js"></script>
 
-        <!-- Bootstrap core JavaScript -->
-        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
 
-        <!-- MDB core JavaScript -->
-        <script type="text/javascript" src="js/mdb.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
 
-        <!-- script evilducks JavaScript -->
-        <script type="text/javascript" src="js/evilducks.js"></script>
+    <!-- script evilducks JavaScript -->
+    <script type="text/javascript" src="js/evilducks.js"></script>
 
-        <!-- JsCookie JavaScript -->
-        <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <!-- JsCookie JavaScript -->
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
 
 
-      </body>
+  </body>
 
-      </html>
+  </html>
