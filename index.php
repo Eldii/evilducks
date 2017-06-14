@@ -67,7 +67,7 @@
             <a class="nav-link" href='#bootcamp'>BootCamp</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href='#demos'>Démos Review</a>
+            <a class="nav-link" href='#demos'>GOTV</a>
           </li>
           <!-- <li class="nav-item">
           <a class="nav-link">Pricing</a>
@@ -153,7 +153,7 @@
           </li>
           <li>
             <a href="https://github.com/Eldii/Evilducks/" class="btn github waves-effect"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
-            <a href="" class="btn btn-primary btn-lg">Sign up!</a>
+            <!-- <a href="" class="btn btn-primary btn-lg">Sign up!</a> -->
             <!-- <a target="_blank" href="https://mdbootstrap.com/material-design-for-bootstrap/" class="btn btn-default btn-lg">Learn more</a> -->
           </li>
         </ul>
@@ -211,6 +211,31 @@
       </form>
     </div>
     <!--/.Demos-->
+
+    <!--Agenda-->
+    <!-- <a  name="agenda"></a>
+    <div class="carousel-caption section" id="agenda">
+      <form method="post" action="">
+      <div class="full-bg-img flex-center">
+        <table class="table table_demos" style="text-align: left;">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nom</th>
+              <th>Date</th>
+              <th>Taille</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php echo afficheDemo(); ?>
+        </tbody>
+      </table>
+    </div>
+    <input class="btn btn-warning bdl" type="submit" value="Télécharger les démos">
+    </form>
+  </div> -->
+  <!--/.Agenda-->
 
 
     <!-- SCRIPTS -->
