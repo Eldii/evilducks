@@ -3,7 +3,7 @@ ob_start();
 session_start();
 
 function logoutbutton() {
-	echo "<form action='' method='get'><button name='logout' type='submit'>Logout</button></form>"; //logout button
+	echo "<form action='' method='get'><button class='btn github waves-effect btnlog' name='logout' type='submit'>Logout</button></form>"; //logout button
 }
 
 // function loginbutton($buttonstyle = "square") {
@@ -17,7 +17,7 @@ function logoutbutton() {
 function loginbutton($buttonstyle = "square") {
 	$button['rectangle'] = "01";
 	$button['square'] = "02";
-	$button = "<a href='?login' class='btn btn-default navbar-btn' style='color: white;'>Sign in</a>";
+	$button = "<a href='?login' class='btn github waves-effect btnlog' style='color: white;'>Sign in</a>";
 
 	echo $button;
 }

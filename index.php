@@ -73,6 +73,9 @@ require ('steamauth/steamauth.php');
             <a class="nav-link" href='#demos'>GOTV</a>
           </li>
           <!-- <li class="nav-item">
+            <a class="nav-link" href='#agenda'>Agenda</a>
+          </li> -->
+          <!-- <li class="nav-item">
           <a class="nav-link">Pricing</a>
         </li>
         <li class="nav-item btn-group">
@@ -84,17 +87,19 @@ require ('steamauth/steamauth.php');
       </div>
     </li> -->
   </ul>
-  <div class="form-inline waves-effect waves-light">
-    <?php
-      if(!isset($_SESSION['steamid'])) {
-          loginbutton();
-        echo "</div>";
-        }  else {
-          include ('steamauth/userInfo.php');
-          echo $steamprofile['personaname'];
-          logoutbutton();
-        }?>
-  </div>
+  <?php
+  if(!isset($_SESSION['steamid'])) {
+    loginbutton();
+  }  else {
+    include ('steamauth/userInfo.php');
+    // print_r('<p class="nav-link">');
+    // print_r($steamprofile);
+    // print_r('</p>');
+    echo '<div style="color: #fff; padding-right: 1%;">';
+    echo '<img src="' . $steamprofile['avatar'] . '" alt="' . $steamprofile['personaname'] . '">';
+    echo 'Quack ! ' . $steamprofile['personaname'] . '</div>';
+    logoutbutton();
+  }?>
 </div>
 </div>
 </nav>
@@ -185,12 +190,16 @@ require ('steamauth/steamauth.php');
             .afficheCompteurBootcamp().
             '</p>'; ?></div></li>
             <li>
-              <p>BootcampOmètre ma frend made in YetiErix</p>
+              <p>Bootcampomètre ma frend made in YetiErix</p>
             </li>
-            <li>
+            <?php
+            if(isset($steamprofile['steamid']) && $steamprofile['steamid'] == "76561197987841925"){
+              echo '<li>
               <button href="" class="btn btn-primary btn-lg incremente">Incrémenter</button>
               <button href="" class="btn btn-default btn-lg decremente">Décrémenter</button>
-            </li>
+              </li>';
+            }
+            ?>
           </ul>
         </div>
         <!--/Intro content-->
@@ -201,75 +210,75 @@ require ('steamauth/steamauth.php');
       <a  name="demos"></a>
       <div class="carousel-caption section" id="demos">
         <form method="post" action="">
-        <!--Intro content-->
-        <div class="full-bg-img flex-center">
-          <table class="table table_demos" style="text-align: left;">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Nom</th>
-                <th>Date</th>
-                <th>Taille</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php echo afficheDemo(); ?>
-          </tbody>
-        </table>
+          <!--Intro content-->
+          <div class="full-bg-img flex-center">
+            <table class="table table_demos" style="text-align: left;">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Nom</th>
+                  <th>Date</th>
+                  <th>Taille</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php echo afficheDemo(); ?>
+              </tbody>
+            </table>
+          </div>
+          <input class="btn btn-warning bdl" type="submit" value="Télécharger les démos">
+        </form>
       </div>
-      <input class="btn btn-warning bdl" type="submit" value="Télécharger les démos">
-      </form>
-    </div>
-    <!--/.Demos-->
+      <!--/.Demos-->
 
-    <!--Agenda-->
-    <!-- <a  name="agenda"></a>
-    <div class="carousel-caption section" id="agenda">
-      <form method="post" action="">
-      <div class="full-bg-img flex-center">
-        <table class="table table_demos" style="text-align: left;">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Nom</th>
-              <th>Date</th>
-              <th>Taille</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php echo afficheDemo(); ?>
-        </tbody>
-      </table>
-    </div>
-    <input class="btn btn-warning bdl" type="submit" value="Télécharger les démos">
-    </form>
-  </div> -->
-  <!--/.Agenda-->
+      <!--Agenda-->
+      <!-- <a  name="agenda"></a>
+      <div class="carousel-caption section container" id="agenda">
+        <div class="row" style="height: 90%; padding-top: 10%;">
+          <div class="col-md-3 event_agenda">
+            <p>Event : Bootcamp
+            <hr>
+            Date : Bootcamp
+            <hr>
+            Time : Bootcamp
+            <hr>
+            Description : Bootcamp </p>
+          </div>
+          <div class="col-md-1"> </div>
+          <div class="col-md-3 event_agenda">
+            test
+          </div>
+          <div class="col-md-1"> </div>
+          <div class="col-md-3 event_agenda">
+            test
+          </div>
+      </div>
+      </div> -->
+      <!--/.Agenda-->
 
 
-    <!-- SCRIPTS -->
+      <!-- SCRIPTS -->
 
-    <!-- JQuery -->
-    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+      <!-- JQuery -->
+      <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 
-    <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="js/tether.min.js"></script>
+      <!-- Bootstrap tooltips -->
+      <script type="text/javascript" src="js/tether.min.js"></script>
 
-    <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+      <!-- Bootstrap core JavaScript -->
+      <script type="text/javascript" src="js/bootstrap.min.js"></script>
 
-    <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="js/mdb.min.js"></script>
+      <!-- MDB core JavaScript -->
+      <script type="text/javascript" src="js/mdb.min.js"></script>
 
-    <!-- script evilducks JavaScript -->
-    <script type="text/javascript" src="js/evilducks.js"></script>
+      <!-- script evilducks JavaScript -->
+      <script type="text/javascript" src="js/evilducks.js"></script>
 
-    <!-- JsCookie JavaScript -->
-    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+      <!-- JsCookie JavaScript -->
+      <script type="text/javascript" src="js/jquery.cookie.js"></script>
 
 
-  </body>
+    </body>
 
-  </html>
+    </html>

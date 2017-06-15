@@ -1,4 +1,18 @@
 /* TEMPLATE STYLES */
+/* Agenda de léquipe */
+.event_agenda{
+  color: black;
+  background-color: white;
+  border-color: #fb3;
+  opacity: 0.8;
+  height: 100%;
+}
+
+/*bouton login et logout */
+.btnlog{
+  margin: 0;
+  padding: 0.5rem 1rem;
+}
 
 /*Demos*/
 .table_demos{

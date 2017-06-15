@@ -1,3 +1,5 @@
+// delete cookie en cas de bug
+// document.cookie = "active=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 // Fonction qui retourne la valeur du cookie que l'on recherche
 function getCookie(cname) {
   var name = cname + "=";
