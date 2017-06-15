@@ -92,6 +92,7 @@ require ('steamauth/steamauth.php');
         }  else {
           include ('steamauth/userInfo.php');
           echo $steamprofile['personaname'];
+          logoutbutton();
         }?>
   </div>
 </div>
