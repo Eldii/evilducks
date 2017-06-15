@@ -1,4 +1,7 @@
-<?php require("function.php"); ?>
+<?php
+require("function.php");
+require ('steamauth/steamauth.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -81,9 +84,16 @@
       </div>
     </li> -->
   </ul>
-  <form class="form-inline waves-effect waves-light">
-    <input class="form-control" type="text" placeholder="Search">
-  </form>
+  <div class="form-inline waves-effect waves-light">
+    <?php
+      if(!isset($_SESSION['steamid'])) {
+          loginbutton();
+        echo "</div>";
+        }  else {
+          include ('steamauth/userInfo.php');
+          echo $steamprofile['personaname'];
+        }?>
+  </div>
 </div>
 </div>
 </nav>
