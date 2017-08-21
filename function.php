@@ -35,19 +35,24 @@ function tempsDeJeu()
   $reponse = $bdd->query('SELECT * FROM players');
   $joueurs = array();
   while ($donnees = $reponse->fetch()) {
-    if ($donnees["pseudo"] !== "Ahix")
-    $joueurs[$donnees["pseudo"]] = $donnees["steam_id64"];
+    if ($donnees["pseudo"] !== "Ahix" && $donnees["pseudo"] !== "Fedaykin"){
+      $joueurs[$donnees["pseudo"]] = $donnees["steam_id64"];
+    }
   }
   $tempsdejeu = array();
   foreach ($joueurs as $pseudo => $value) {
     $json_url = "http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=8F25D1AE8072C7EEC4D51A90324B549D&steamid=".$value."&format=json";
     $json = file_get_contents($json_url);
     $data = json_decode($json, true);
+    $csgofind = false;
     for ($i = 0; $i < count($data['response']['games']); $i++) {
       if ($data['response']['games'][$i]["appid"] == 730) {
         $playtime_2weeks = $data['response']['games'][$i]['playtime_2weeks'];
+        $csgofind = true;
       }
     }
+    if(!$csgofind)
+      $playtime_2weeks = 0;
     $hours = round($playtime_2weeks/60, 1, PHP_ROUND_HALF_UP);
     $tempsdejeu[$pseudo] = $hours;
     arsort($tempsdejeu);
