@@ -3,14 +3,22 @@ ob_start();
 session_start();
 
 function logoutbutton() {
-	echo "<form action='' method='get'><button name='logout' type='submit'>Logout</button></form>"; //logout button
+	echo "<form action='' method='get'><button class='btn github waves-effect btnlog' name='logout' type='submit'>Logout</button></form>"; //logout button
 }
+
+// function loginbutton($buttonstyle = "square") {
+// 	$button['rectangle'] = "01";
+// 	$button['square'] = "02";
+// 	$button = "<a href='?login'><img src='http://cdn.steamcommunity.com/public/images/signinthroughsteam/sits_".$button[$buttonstyle].".png'></a>";
+//
+// 	echo $button;
+// }
 
 function loginbutton($buttonstyle = "square") {
 	$button['rectangle'] = "01";
 	$button['square'] = "02";
-	$button = "<a href='?login'><img src='http://cdn.steamcommunity.com/public/images/signinthroughsteam/sits_".$button[$buttonstyle].".png'></a>";
-	
+	$button = "<a href='?login' class='btn github waves-effect btnlog' style='color: white;'>Sign in</a>";
+
 	echo $button;
 }
 
@@ -19,18 +27,18 @@ if (isset($_GET['login'])){
 	try {
 		require 'SteamConfig.php';
 		$openid = new LightOpenID($steamauth['domainname']);
-		
+
 		if(!$openid->mode) {
 			$openid->identity = 'http://steamcommunity.com/openid';
 			header('Location: ' . $openid->authUrl());
 		} elseif ($openid->mode == 'cancel') {
 			echo 'User has canceled authentication!';
 		} else {
-			if($openid->validate()) { 
+			if($openid->validate()) {
 				$id = $openid->identity;
 				$ptn = "/^http:\/\/steamcommunity\.com\/openid\/id\/(7[0-9]{15,25}+)$/";
 				preg_match($ptn, $id, $matches);
-				
+
 				$_SESSION['steamid'] = $matches[1];
 				if (!headers_sent()) {
 					header('Location: '.$steamauth['loginpage']);
