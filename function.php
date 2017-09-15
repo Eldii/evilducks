@@ -469,37 +469,57 @@ function archiveDemo($demos){
 */
 function telechargeDemo($demos){
   if(count($demos) > 1){
-    //Préparation du header pour le dl
-    header('Content-disposition: attachment; filename="demos/download_demo.zip"');
-    header('Content-Type: application/force-download');
-    header('Content-Transfer-Encoding: application/zip'.'\n'); // Surtout ne pas enlever le \n
-    header('Content-Length: '.filesize("demos/download_demo.zip"));
-    header("Pragma: no-cache");
-    header('Cache-Control: must-revalidate, post-check=0, pre-check=0, public');
-    header('Expires: 0');
+    // http headers for downloads
+    header("Pragma: public");
+    header("Expires: 0");
+    header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+    header("Cache-Control: public");
+    header("Content-Description: File Transfer");
+    header("Content-type: application/octet-stream");
+    header("Content-Disposition: attachment; filename='demos/download_demo.zip'");
+    header("Content-Transfer-Encoding: binary");
+    header("Content-Length: ".filesize("demos/download_demo.zip"));
 
-    // Efface le tampon de sortie IMPORTANT !!!!!!!!!!!!!!!
-    ob_clean();
+    if ($fd = fopen ("demos/download_demo.zip", "r")) {
 
-    //téléchargement
-    readfile("demos/download_demo.zip");
-    unlink("demos/download_demo.zip");
+            set_time_limit(0);
+            ini_set('memory_limit', '1024M');
+            // Efface le tampon de sortie IMPORTANT !!!!!!!!!!!!!!!
+            ob_clean();
+            flush();
+        while(!feof($fd)) {
+            echo fread($fd, 4096);
+        }
+    }
+    ob_end_flush();
     exit();
   }else{
     $demo = array_pop($demos);
     $nom = explode('/', $demo)[1];
     $poids = filesize($demo);
-    header('Content-Type: application/octet-stream');
-    header('Content-Length: '. $poids);
-    header('Content-disposition: attachment; filename='. $nom);
-    header('Pragma: no-cache');
-    header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
-    header('Expires: 0');
+    // http headers for downloads
+    header("Pragma: public");
+    header("Expires: 0");
+    header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+    header("Cache-Control: public");
+    header("Content-Description: File Transfer");
+    header("Content-type: application/octet-stream");
+    header("Content-Disposition: attachment; filename=\"".$nom."\"");
+    header("Content-Transfer-Encoding: binary");
+    header("Content-Length: ".$poids);
 
-    // Efface le tampon de sortie IMPORTANT !!!!!!!!!!!!!!!
-    ob_clean();
+    if ($fd = fopen ($demo, "r")) {
 
-    readfile($demo);
+            set_time_limit(0);
+            ini_set('memory_limit', '1024M');
+            // Efface le tampon de sortie IMPORTANT !!!!!!!!!!!!!!!
+            ob_clean();
+            flush();
+        while(!feof($fd)) {
+            echo fread($fd, 4096);
+        }
+    }
+    ob_end_flush();
     exit();
   }
 
