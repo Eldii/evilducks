@@ -48,6 +48,7 @@ require ('steamauth/steamauth.php');
 
     //téléchargement
     readfile("demos/download_demo.zip");
+    unlink("demos/download_demo.zip");
   }
   ?>
 
@@ -212,22 +213,34 @@ require ('steamauth/steamauth.php');
         <form method="post" action="">
           <!--Intro content-->
           <div class="full-bg-img flex-center">
-            <table class="table table_demos" style="text-align: left;">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Nom</th>
-                  <th>Date</th>
-                  <th>Taille</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php echo afficheDemo(); ?>
-              </tbody>
-            </table>
+            <div class="container">
+              <div class="row table_dl">
+                <table class="table table_demos" style="text-align: left;">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Nom</th>
+                      <th>Date (d/m/Y)</th>
+                      <th>Taille</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php echo afficheDemo(); ?>
+                  </tbody>
+                </table>
+              </div>
+              <div class="row">
+                <div class="col">
+                </div>
+                <div class="col">
+                    <input class="btn btn-warning" type="submit" value="Télécharger les démos">
+                </div>
+                <div class="col">
+                </div>
+              </div>
+            </div>
           </div>
-          <input class="btn btn-warning bdl" type="submit" value="Télécharger les démos">
         </form>
       </div>
       <!--/.Demos-->

@@ -422,8 +422,8 @@ function afficheDemo()
     $td_table .= '<tr>
     <th scope="row">'. $compteur .'</th>
     <td>'. $demo .'</td>
-    <td>'. date("d m Y", filemtime($chemin_demo.$demo)) .'</td>
-    <td>'. filesize($chemin_demo.$demo) .'</td>
+    <td>'. date("d/m/Y", filemtime($chemin_demo.$demo)) .'</td>
+    <td>'. affiche_taille(filesize($chemin_demo.$demo)) .'</td>
     <td>
     <fieldset class="form-group">
     <input name="demo_coche'. $compteur .'" value="'. $chemin_demo.$demo .'" type="checkbox">
@@ -451,4 +451,27 @@ function telechargeDemo($demos){
     }
     $zip->close();
   }
+}
+
+/**
+ * Affiche la taille d'un fichier et la met forme
+ *
+ * @param int $taille Taille du fichier en octet
+ *
+ * @return int
+*/
+function affiche_taille($taille) {
+	// $taille = intval($taille);
+	// $taille = (int)$taille;
+	// si le fichier à une taille supérieur à 2147483647, je le laisse en string car php ne lit pas les entiers plus lourd que 2147483647
+	$taille = ($taille < 2147483647) ? (int)$taille : $taille;
+	if ($taille<1024) { //octets
+		return number_format($taille, 0, ',', ' ').' octets';
+	}
+	else if ($taille < (1024*1024)) { //Ko
+		return number_format($taille/1024, 0, ',', ' ').' Ko';
+	}
+	else { //Mo
+		return number_format($taille/(1024*1024), 0, ',', ' ').' Mo';
+	}
 }
