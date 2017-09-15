@@ -1,6 +1,10 @@
 <?php
 require("function.php");
-require ('steamauth/steamauth.php');
+require('steamauth/steamauth.php');
+if(isset($_POST) && !empty($_POST)){
+  archiveDemo($_POST);
+  telechargeDemo($_POST);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,12 +35,6 @@ require ('steamauth/steamauth.php');
 </head>
 
 <body>
-  <?php
-  if(isset($_POST) && !empty($_POST)){
-    archiveDemo($_POST);
-    telechargeDemo($_POST);
-  }
-  ?>
 
 
   <!--Navbar-->
