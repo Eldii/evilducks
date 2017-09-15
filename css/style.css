@@ -28,6 +28,12 @@
 
 /* Navigation*/
 
+.table_dl{
+  height:500px;
+  width:100%;
+  overflow:auto;/*pour activer les scrollbarres*/
+}
+
 .navbar {
     background-color: transparent;
 }
