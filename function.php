@@ -209,6 +209,14 @@ function resultatsMatchs()
       <td>'. $nommap3 .'</td>
       <td>'. $scoremap3[1] .'</td>
       </tr>';
+      if(!empty($scoremap3)){
+        $tr .= '
+        <tr class="details info">
+          <td>'. $scoremap3[0] .'</td>
+          <td>'. $nommap3 .'</td>
+          <td>'. $scoremap3[1] .'</td>
+        </tr>';
+      }
     }
   }
   return $tr;
