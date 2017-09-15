@@ -1,4 +1,4 @@
 .php_cs.cache
 config.php
 Key.txt
-./demos/*.dem
+demos/*.dem
