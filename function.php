@@ -439,18 +439,62 @@ function afficheDemo()
 * Fonction qui telecharge l'ensemble des démos cochés au préalable
 *
 */
-function telechargeDemo($demos){
+function archiveDemo($demos){
   unlink("demos/download_demo.zip");
-  $zip = new ZipArchive();
-  if($zip->open("demos/download_demo.zip", ZIPARCHIVE::CREATE) !== true) {
-    $traitement = FALSE;
-  }
-  else {
-    foreach($demos as $demo){
-      $zip->addFile($demo, iconv('ISO-8859-1', 'IBM850', $demo));
+  if(count($demos) > 1){
+    $zip = new ZipArchive();
+    if($zip->open("demos/download_demo.zip", ZIPARCHIVE::CREATE) !== true) {
+      $traitement = FALSE;
     }
-    $zip->close();
+    else {
+      foreach($demos as $demo){
+        $zip->addFile($demo, iconv('ISO-8859-1', 'IBM850', $demo));
+      }
+      $zip->close();
+    }
   }
+}
+
+/**
+ * Lance le téléchargement de démos (compresse toutes les démos dans un zip si il y en a plus d'une)
+ *
+*/
+function telechargeDemo($demos){
+  if(count($demos) > 1){
+    //Préparation du header pour le dl
+    header('Content-disposition: attachment; filename="demos/download_demo.zip"');
+    header('Content-Type: application/force-download');
+    header('Content-Transfer-Encoding: application/zip'.'\n'); // Surtout ne pas enlever le \n
+    header('Content-Length: '.filesize("demos/download_demo.zip"));
+    header("Pragma: no-cache");
+    header('Cache-Control: must-revalidate, post-check=0, pre-check=0, public');
+    header('Expires: 0');
+
+    // Efface le tampon de sortie IMPORTANT !!!!!!!!!!!!!!!
+    ob_clean();
+
+    //téléchargement
+    readfile("demos/download_demo.zip");
+    unlink("demos/download_demo.zip");
+    exit();
+  }else{
+    $demo = array_pop($demos);
+    $nom = explode('/', $demo)[1];
+    $poids = filesize($demo);
+    header('Content-Type: application/octet-stream');
+    header('Content-Length: '. $poids);
+    header('Content-disposition: attachment; filename='. $nom);
+    header('Pragma: no-cache');
+    header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
+    header('Expires: 0');
+
+    // Efface le tampon de sortie IMPORTANT !!!!!!!!!!!!!!!
+    ob_clean();
+
+    readfile($demo);
+    exit();
+  }
+
 }
 
 /**

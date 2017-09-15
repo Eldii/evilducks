@@ -33,22 +33,8 @@ require ('steamauth/steamauth.php');
 <body>
   <?php
   if(isset($_POST) && !empty($_POST)){
+    archiveDemo($_POST);
     telechargeDemo($_POST);
-    //Préparation du header pour le dl
-    header('Content-disposition: attachment; filename="demos/download_demo.zip"');
-    header('Content-Type: application/force-download');
-    header('Content-Transfer-Encoding: application/zip'.'\n'); // Surtout ne pas enlever le \n
-    header('Content-Length: '.filesize("demos/download_demo.zip"));
-    header("Pragma: no-cache");
-    header('Cache-Control: must-revalidate, post-check=0, pre-check=0, public');
-    header('Expires: 0');
-
-    // Efface le tampon de sortie IMPORTANT !!!!!!!!!!!!!!!
-    ob_clean();
-
-    //téléchargement
-    readfile("demos/download_demo.zip");
-    unlink("demos/download_demo.zip");
   }
   ?>
 
