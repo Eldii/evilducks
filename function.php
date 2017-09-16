@@ -447,11 +447,10 @@ function afficheDemo()
 * Fonction qui telecharge l'ensemble des démos cochés au préalable
 *
 */
-function archiveDemo($demos){
+function archiveDemo($demos, $connexion = false){
   // Création du fichier temporaire
   $_SESSION['tmp_file'] = tempnam("tmp", "zip");
   // Création de l'archive
-  if(count($demos) > 1){
     $zip = new ZipArchive();
     if($zip->open($_SESSION['tmp_file'], ZIPARCHIVE::CREATE) !== true) {
       $traitement = FALSE;
@@ -459,20 +458,27 @@ function archiveDemo($demos){
     else {
       // On stocke les démos séléctionnés dans l'archive
       foreach($demos as $demo){
+        if($demo == "on")
+          continue;
         $zip->addFile($demo, iconv('ISO-8859-1', 'IBM850', $demo));
-        $zip->setCompressionName($demo, ZIPARCHIVE::CM_STORE);
+        // Si l'user a un gros débit on ne compresse pas les fichiers
+        if($connexion == "on"){
+          $zip->setCompressionName($demo, ZIPARCHIVE::CM_STORE);
+        }
+        else { // Sinon on compresse les fichiers
+          $zip->setCompressionName($demo, ZIPARCHIVE::CM_DEFLATE);
+        }
       }
       $zip->close();
     }
-  }
 }
 
 /**
  * Lance le téléchargement de démos (compresse toutes les démos dans un zip si il y en a plus d'une)
  *
 */
-function telechargeDemo($demos){
-  if(count($demos) > 1){
+function telechargeDemo(){
+  // if(count($demos) > 1){
     // http headers for downloads
     header("Pragma: public");
     header("Expires: 0");
@@ -498,35 +504,35 @@ function telechargeDemo($demos){
     ob_end_flush();
     unlink($_SESSION['tmp_file']); // delete du fichier temporaire
     exit();
-  }else{
-    $demo = array_pop($demos);
-    $nom = explode('/', $demo)[1];
-    $poids = filesize($demo);
-    // http headers for downloads
-    header("Pragma: public");
-    header("Expires: 0");
-    header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-    header("Cache-Control: public");
-    header("Content-Description: File Transfer");
-    header("Content-type: application/octet-stream");
-    header("Content-Disposition: attachment; filename=\"".$nom."\"");
-    header("Content-Transfer-Encoding: binary");
-    header("Content-Length: ".$poids);
-
-    if ($fd = fopen ($demo, "r")) {
-
-            set_time_limit(0);
-            ini_set('memory_limit', '1024M');
-            // Efface le tampon de sortie IMPORTANT !!!!!!!!!!!!!!!
-            ob_clean();
-            flush();
-        while(!feof($fd)) {
-            echo fread($fd, 4096);
-        }
-    }
-    ob_end_flush();
-    exit();
-  }
+  // }else{
+  //   $demo = array_pop($demos);
+  //   $nom = explode('/', $demo)[1];
+  //   $poids = filesize($demo);
+  //   // http headers for downloads
+  //   header("Pragma: public");
+  //   header("Expires: 0");
+  //   header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+  //   header("Cache-Control: public");
+  //   header("Content-Description: File Transfer");
+  //   header("Content-type: application/octet-stream");
+  //   header("Content-Disposition: attachment; filename=\"".$nom."\"");
+  //   header("Content-Transfer-Encoding: binary");
+  //   header("Content-Length: ".$poids);
+  //
+  //   if ($fd = fopen ($demo, "r")) {
+  //
+  //           set_time_limit(0);
+  //           ini_set('memory_limit', '1024M');
+  //           // Efface le tampon de sortie IMPORTANT !!!!!!!!!!!!!!!
+  //           ob_clean();
+  //           flush();
+  //       while(!feof($fd)) {
+  //           echo fread($fd, 4096);
+  //       }
+  //   }
+  //   ob_end_flush();
+  //   exit();
+  // }
 
 }
 

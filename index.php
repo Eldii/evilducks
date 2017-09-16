@@ -34,8 +34,8 @@ require ('steamauth/steamauth.php');
 <body>
   <?php
   if(isset($_POST) && !empty($_POST)){
-    archiveDemo($_POST);
-    telechargeDemo($_POST);
+    isset($_POST['connexion']) ? archiveDemo($_POST, $_POST['connexion']) : archiveDemo($_POST);
+    telechargeDemo();
   }
   ?>
 
@@ -61,33 +61,33 @@ require ('steamauth/steamauth.php');
             <a class="nav-link" href='#demos'>GOTV</a>
           </li>
           <!-- <li class="nav-item">
-            <a class="nav-link" href='#agenda'>Agenda</a>
-          </li> -->
-          <!-- <li class="nav-item">
-          <a class="nav-link">Pricing</a>
-        </li>
-        <li class="nav-item btn-group">
-        <a class="nav-link dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-        <a class="dropdown-item">Action</a>
-        <a class="dropdown-item">Another action</a>
-        <a class="dropdown-item">Something else here</a>
-      </div>
-    </li> -->
-  </ul>
-  <?php
-  if(!isset($_SESSION['steamid'])) {
-    loginbutton();
-  }  else {
-    include ('steamauth/userInfo.php');
-    // print_r('<p class="nav-link">');
-    // print_r($steamprofile);
-    // print_r('</p>');
-    echo '<div style="color: #fff; padding-right: 1%;">';
-    echo '<img src="' . $steamprofile['avatar'] . '" alt="' . $steamprofile['personaname'] . '">';
-    echo 'Quack ! ' . $steamprofile['personaname'] . '</div>';
-    logoutbutton();
-  }?>
+          <a class="nav-link" href='#agenda'>Agenda</a>
+        </li> -->
+        <!-- <li class="nav-item">
+        <a class="nav-link">Pricing</a>
+      </li>
+      <li class="nav-item btn-group">
+      <a class="nav-link dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+      <a class="dropdown-item">Action</a>
+      <a class="dropdown-item">Another action</a>
+      <a class="dropdown-item">Something else here</a>
+    </div>
+  </li> -->
+</ul>
+<?php
+if(!isset($_SESSION['steamid'])) {
+  loginbutton();
+}  else {
+  include ('steamauth/userInfo.php');
+  // print_r('<p class="nav-link">');
+  // print_r($steamprofile);
+  // print_r('</p>');
+  echo '<div style="color: #fff; padding-right: 1%;">';
+  echo '<img src="' . $steamprofile['avatar'] . '" alt="' . $steamprofile['personaname'] . '">';
+  echo 'Quack ! ' . $steamprofile['personaname'] . '</div>';
+  logoutbutton();
+}?>
 </div>
 </div>
 </nav>
@@ -221,7 +221,13 @@ require ('steamauth/steamauth.php');
                 <div class="col">
                 </div>
                 <div class="col">
-                    <input class="btn btn-warning" type="submit" value="Télécharger les démos">
+                  <div class="funkyradio">
+                    <div class="funkyradio-warning">
+                      <input type="checkbox" name="connexion" id="radio5" />
+                      <label for="radio5">Si votre débit est bon cliquez sur cette checkbox</label>
+                    </div>
+                  </div>
+                  <input class="btn btn-warning" type="submit" value="Télécharger les démos">
                 </div>
                 <div class="col">
                 </div>
@@ -235,50 +241,50 @@ require ('steamauth/steamauth.php');
       <!--Agenda-->
       <!-- <a  name="agenda"></a>
       <div class="carousel-caption section container" id="agenda">
-        <div class="row" style="height: 90%; padding-top: 10%;">
-          <div class="col-md-3 event_agenda">
-            <p>Event : Bootcamp
-            <hr>
-            Date : Bootcamp
-            <hr>
-            Time : Bootcamp
-            <hr>
-            Description : Bootcamp </p>
-          </div>
-          <div class="col-md-1"> </div>
-          <div class="col-md-3 event_agenda">
-            test
-          </div>
-          <div class="col-md-1"> </div>
-          <div class="col-md-3 event_agenda">
-            test
-          </div>
-      </div>
-      </div> -->
-      <!--/.Agenda-->
+      <div class="row" style="height: 90%; padding-top: 10%;">
+      <div class="col-md-3 event_agenda">
+      <p>Event : Bootcamp
+      <hr>
+      Date : Bootcamp
+      <hr>
+      Time : Bootcamp
+      <hr>
+      Description : Bootcamp </p>
+    </div>
+    <div class="col-md-1"> </div>
+    <div class="col-md-3 event_agenda">
+    test
+  </div>
+  <div class="col-md-1"> </div>
+  <div class="col-md-3 event_agenda">
+  test
+</div>
+</div>
+</div> -->
+<!--/.Agenda-->
 
 
-      <!-- SCRIPTS -->
+<!-- SCRIPTS -->
 
-      <!-- JQuery -->
-      <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<!-- JQuery -->
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 
-      <!-- Bootstrap tooltips -->
-      <script type="text/javascript" src="js/tether.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="js/tether.min.js"></script>
 
-      <!-- Bootstrap core JavaScript -->
-      <script type="text/javascript" src="js/bootstrap.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
 
-      <!-- MDB core JavaScript -->
-      <script type="text/javascript" src="js/mdb.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="js/mdb.min.js"></script>
 
-      <!-- script evilducks JavaScript -->
-      <script type="text/javascript" src="js/evilducks.js"></script>
+<!-- script evilducks JavaScript -->
+<script type="text/javascript" src="js/evilducks.js"></script>
 
-      <!-- JsCookie JavaScript -->
-      <script type="text/javascript" src="js/jquery.cookie.js"></script>
+<!-- JsCookie JavaScript -->
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
 
 
-    </body>
+</body>
 
-    </html>
+</html>
