@@ -416,6 +416,7 @@ function afficheDemo()
 {
   $chemin_demo = "demos/";
   $tab_demo = scandir($chemin_demo);
+  // On récupère toutes les démo et on stocke les données dans la liste $tableau_demos
   for($i = 0; $i < count($tab_demo); $i++){
     $demo = $tab_demo[$i];
     $ext = explode('.', $demo);
@@ -424,12 +425,14 @@ function afficheDemo()
       $tableau_demos[] = array('nom' => $demo, 'date' => filemtime($chemin_demo.$demo), 'taille' => affiche_taille(filesize($chemin_demo.$demo)));
     }
   }
+  // On tri les démos par date dans l'ordre décroissant
   usort($tableau_demos, function($a, $b) {
     if ($a['date'] == $b['date']) {
         return 0;
     }
     return ($a['date'] > $b['date']) ? -1 : 1;
   });
+  // On affiche toutes les démos dans le tableau
   $compteur = 0;
   $td_table= "";
   foreach($tableau_demos as $demo){
