@@ -27,6 +27,9 @@ require ('steamauth/steamauth.php');
   <!-- Material Design Bootstrap -->
   <link href="css/mdb.min.css" rel="stylesheet">
 
+  <!-- Flags Sprites -->
+  <link href="css/flags.css" rel=stylesheet type="text/css">
+
   <!-- Template styles -->
   <link href="css/style.css" rel="stylesheet">
 
@@ -76,6 +79,10 @@ require ('steamauth/steamauth.php');
     </div>
   </li> -->
 </ul>
+<div style="color: #fff; padding-right: 1%;">
+  <img src="blank.gif" class="flag flag-fr" alt="France" />
+  <img src="blank.gif" class="flag flag-england" alt="English" />
+</div>
 <?php
 if(!isset($_SESSION['steamid'])) {
   loginbutton();
