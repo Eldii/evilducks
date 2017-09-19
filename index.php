@@ -1,5 +1,6 @@
 <?php
 require("function.php");
+require("texte/fr.php");
 require ('steamauth/steamauth.php');
 @unlink("demos/download_demo.zip");
 ?>
@@ -52,13 +53,13 @@ require ('steamauth/steamauth.php');
       <div class="collapse navbar-collapse" id="collapseEx2">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href='#home'>Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href='#home'><?php echo HOME ?><span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href='#bootcamp'>BootCamp</a>
+            <a class="nav-link" href='#bootcamp'><?php echo BOOTCAMP ?></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href='#demos'>GOTV</a>
+            <a class="nav-link" href='#demos'><?php echo GOTV ?></a>
           </li>
           <!-- <li class="nav-item">
           <a class="nav-link" href='#agenda'>Agenda</a>
@@ -102,9 +103,9 @@ if(!isset($_SESSION['steamid'])) {
     <div class="flex-center animated fadeInDown">
       <ul>
         <li>
-          <h1 class="h1-responsive">Evilcup : tournoi CSGO</h1></li>
+          <h1 class="h1-responsive"><?php echo TITRE_BIENVENUE?></h1></li>
           <li>
-            <p>Un tournoi réservé exclusivement au membres de la team Evilducks</p>
+            <p><?php echo COMPTEUR?></p>
           </li>
           <li>
             <div class="container compteurheures">
@@ -178,7 +179,12 @@ if(!isset($_SESSION['steamid'])) {
             .afficheCompteurBootcamp().
             '</p>'; ?></div></li>
             <li>
-              <p>Bootcampomètre ma frend made in YetiErix</p>
+              <p>
+                <?php
+                echo BOOTCAMP_COMPTEUR;
+                echo BOOTCAMP_TEXTE;
+                ?>
+            </p>
             </li>
             <?php
             if(isset($steamprofile['steamid']) && $steamprofile['steamid'] == "76561197987841925"){
@@ -206,9 +212,9 @@ if(!isset($_SESSION['steamid'])) {
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Nom</th>
-                      <th>Date (d/m/Y)</th>
-                      <th>Taille</th>
+                      <th><?php echo NOM;?></th>
+                      <th><?php echo DATE;?></th>
+                      <th><?php echo TAILLE;?></th>
                       <th></th>
                     </tr>
                   </thead>
@@ -224,10 +230,10 @@ if(!isset($_SESSION['steamid'])) {
                   <div class="funkyradio">
                     <div class="funkyradio-warning">
                       <input type="checkbox" name="connexion" id="radio5" />
-                      <label for="radio5">Si votre débit est bon cliquez sur cette checkbox</label>
+                      <label for="radio5"><?php echo DEBIT_CHECKBOX;?></label>
                     </div>
                   </div>
-                  <input class="btn btn-warning" type="submit" value="Télécharger les démos">
+                  <input class="btn btn-warning" type="submit" value="<?php echo DOWNLOAD_DEMO;?>">
                 </div>
                 <div class="col">
                 </div>
