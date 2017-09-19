@@ -103,6 +103,22 @@ $(".decremente").click(function()
   }
 });
 
+// Séléctionne la checkbox quand on clique sur une ligne du tableau des démos
+$('.table_demos tr').click(function(e){
+  // Checkbox à cocher ou à décocher
+  var input = $(this).children('td').children('.form-group').children('input');
+  var element = e.target||event.srcElement;
+  if(element.name !== input.attr('name')){
+    // Si la checkbox est déjà coché on la décoche
+    if(input.is(':checked')){
+      input.prop('checked', false);
+    }
+    else{ // Sinon on la coche
+      input.prop('checked', true);
+    }
+  }
+});
+
 // Switch section
 // $("a", 'nav').not(".btn").click(function()
 // {
