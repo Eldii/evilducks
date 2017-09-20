@@ -119,6 +119,15 @@ $('.table_demos tr').click(function(e){
   }
 });
 
+// affiche la div d'aide quand on passe la souris sur le logo de l'aide (page demos)
+$('.img_aide').hover(function(){
+  if($(".bloc_help").css('visibility') == "hidden"){
+      $(".bloc_help").css('visibility', 'visible');
+  }else{
+      $(".bloc_help").css('visibility', 'hidden');
+  }
+});
+
 // Switch section
 // $("a", 'nav').not(".btn").click(function()
 // {
