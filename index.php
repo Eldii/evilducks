@@ -1,7 +1,19 @@
 <?php
+session_start();
 require("function.php");
-require("texte/fr.php");
-require ('steamauth/steamauth.php');
+//chargement de la langue
+$liste_langues=array('fr','eng');
+if (!isset($_SESSION['lang'])) {
+  $_SESSION['lang']='fr';
+}
+elseif (isset($_GET['lang']) && in_array($_GET['lang'], $liste_langues)) {
+	$previousLang = $_SESSION['lang'];
+	if($previousLang != $_GET['lang']) {
+		$_SESSION['lang']=$_GET['lang'];
+	}
+}
+require('texte/' . $_SESSION['lang'] .'.php');
+@require ('steamauth/steamauth.php');
 @unlink("demos/download_demo.zip");
 ?>
 <!DOCTYPE html>
@@ -80,8 +92,23 @@ require ('steamauth/steamauth.php');
   </li> -->
 </ul>
 <div style="color: #fff; padding-right: 1%;">
-  <img src="blank.gif" class="flag flag-fr" alt="France" />
-  <img src="blank.gif" class="flag flag-england" alt="English" />
+  <?php
+  if((!isset($_GET) || trim(empty($_GET))) && (!preg_match('/\?lang=|\&lang=/i', $_SERVER['REQUEST_URI']))) { // aucun parametre dans GET
+    $langFr = $_SERVER['REQUEST_URI'].'?lang=fr';
+    $langEn = $_SERVER['REQUEST_URI'].'?lang=eng';
+  }
+  else if(trim(!empty($_GET)) && !isset($_GET['lang'])) { // il existe des parametre dans GET, mais qu'il n'y a pas GET['lang'], on l'ajoute à la suite
+    $langFr = $_SERVER['REQUEST_URI'].'&lang=fr';
+    $langEn = $_SERVER['REQUEST_URI'].'&lang=eng';
+  }
+  else { // sinon, on reconnait ?lang ou &lang dans l'url et on le modifie pour lui attribuer la bonne valeur
+    $langFr = ((preg_match('/\?lang=eng/', $_SERVER['REQUEST_URI'])) ? str_replace("?lang=eng", "?lang=fr", $_SERVER['REQUEST_URI']) : str_replace("&lang=eng", "&lang=fr", $_SERVER['REQUEST_URI'])); // lang fr
+    $langEn = ((preg_match('/\?lang=fr/', $_SERVER['REQUEST_URI'])) ? str_replace("?lang=fr", "?lang=eng", $_SERVER['REQUEST_URI']) : str_replace("&lang=fr", "&lang=eng", $_SERVER['REQUEST_URI'])); // lang fr
+  }
+
+  echo '<a href="'.$langFr.'" title="Français"><img src="blank.gif" class="flag flag-fr" alt="France" /></a>
+      <a href="'.$langEn.'" title="English"><img src="blank.gif" class="flag flag-england" alt="English" /></a>';
+   ?>
 </div>
 <?php
 if(!isset($_SESSION['steamid'])) {
