@@ -2,4 +2,5 @@
 config.php
 Key.txt
 demos/*.dem
+img/
 img/*
