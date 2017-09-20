@@ -416,25 +416,34 @@ function afficheDemo()
 {
   $chemin_demo = "demos/";
   $tab_demo = scandir($chemin_demo);
+  // On récupère toutes les démo et on stocke les données dans la liste $tableau_demos
   for($i = 0; $i < count($tab_demo); $i++){
     $demo = $tab_demo[$i];
     $ext = explode('.', $demo);
     $ext = end($ext);
-    if($ext !== "dem"){
-      unset($tab_demo[$i]);
+    if($ext == "dem"){
+      $tableau_demos[] = array('nom' => $demo, 'date' => filemtime($chemin_demo.$demo), 'taille' => affiche_taille(filesize($chemin_demo.$demo)));
     }
   }
+  // On tri les démos par date dans l'ordre décroissant
+  usort($tableau_demos, function($a, $b) {
+    if ($a['date'] == $b['date']) {
+        return 0;
+    }
+    return ($a['date'] > $b['date']) ? -1 : 1;
+  });
+  // On affiche toutes les démos dans le tableau
   $compteur = 0;
   $td_table= "";
-  foreach($tab_demo as $demo){
+  foreach($tableau_demos as $demo){
     $td_table .= '<tr>
     <th scope="row">'. $compteur .'</th>
-    <td>'. $demo .'</td>
-    <td>'. date("d/m/Y", filemtime($chemin_demo.$demo)) .'</td>
-    <td>'. affiche_taille(filesize($chemin_demo.$demo)) .'</td>
+    <td>'. $demo['nom'] .'</td>
+    <td>'. date("d/m/Y", $demo['date']) .'</td>
+    <td>'. $demo['taille'] .'</td>
     <td>
     <fieldset class="form-group">
-    <input name="demo_coche'. $compteur .'" value="'. $chemin_demo.$demo .'" type="checkbox">
+    <input name="demo_coche'. $compteur .'" value="'. $chemin_demo.$demo['nom'] .'" type="checkbox">
     </fieldset>
     </td>
     </td>';
