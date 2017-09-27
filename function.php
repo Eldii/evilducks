@@ -567,3 +567,17 @@ function affiche_taille($taille) {
 		return number_format($taille/(1024*1024), 0, ',', ' ').' Mo';
 	}
 }
+
+/**
+ * Affiche le lien de téléchargement de démos
+ *
+ *
+ * @return html
+*/
+function affiche_lien_telechargement() {
+  if(isset($_POST['lien_demos'])){
+    echo '<div>
+      <a href="https://developer.mozilla.org/">MDN</a>
+    </div>';
+  }
+}

@@ -49,7 +49,7 @@ require('texte/' . $_SESSION['lang'] .'.php');
 
 <body>
   <?php
-  if(isset($_POST) && !empty($_POST)){
+  if(isset($_POST) && !empty($_POST) && !isset($_POST['lien_demos'])){
     isset($_POST['connexion']) ? archiveDemo($_POST, $_POST['connexion']) : archiveDemo($_POST);
     telechargeDemo();
   }
@@ -107,7 +107,7 @@ require('texte/' . $_SESSION['lang'] .'.php');
   }
 
   echo '<a href="'.$langFr.'" title="Français"><img src="blank.gif" class="flag flag-fr" alt="France" /></a>
-      <a href="'.$langEn.'" title="English"><img src="blank.gif" class="flag flag-england" alt="English" /></a>';
+      <a href="'.$langEn.'" title="English"><img src="blank.gif" class="flag flag-gb" alt="English" /></a>';
    ?>
 </div>
 <?php
@@ -133,7 +133,7 @@ if(!isset($_SESSION['steamid'])) {
   </video>
   <!--Caption-->
   <a  name="home"></a>
-  <div class="section carousel-caption active" id="home">
+  <div class="section section_caption active" id="home">
     <div class="flex-center animated fadeInDown">
       <ul>
         <li>
@@ -203,7 +203,7 @@ if(!isset($_SESSION['steamid'])) {
 
     <!--Bootcamp-->
     <a  name="bootcamp"></a>
-    <div class="carousel-caption section" id="bootcamp">
+    <div class="section_caption section" id="bootcamp">
       <!--Intro content-->
       <div class="full-bg-img flex-center">
         <ul>
@@ -236,7 +236,7 @@ if(!isset($_SESSION['steamid'])) {
 
       <!--Demos-->
       <a  name="demos"></a>
-      <div class="carousel-caption section" id="demos">
+      <div class="section_caption section" id="demos">
         <form method="post" action="">
           <!--Intro content-->
           <div class="full-bg-img flex-center">
@@ -274,7 +274,9 @@ if(!isset($_SESSION['steamid'])) {
                       <span><?php echo DEBIT_CHECKBOX;?></span>
                     </label>
                   </div>
+                  <input class="btn btn-warning" title="Créer le lien de téléchargement" name="lien_demos" value="Créer le lien de téléchargement" type="submit">
                   <input class="btn btn-warning" type="submit" value="<?php echo DOWNLOAD_DEMO;?>">
+                  <?php affiche_lien_telechargement(); ?>
                 </div>
                 <div class="col bloc_help">
                     <p class="text_help"><?php echo CHECKBOX_HELP; ?></p>
