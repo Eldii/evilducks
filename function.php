@@ -2,6 +2,7 @@
 require("config.php");
 setlocale(LC_TIME, "fr_FR");
 $bdd = connectDB();
+$chemin_demo = "demos/";
 
 /**
 * Fonction qui permet de se connecter à la base de données
@@ -414,7 +415,7 @@ function decrementeBootcamp()
 */
 function afficheDemo()
 {
-  $chemin_demo = "demos/";
+  $chemin_demo = $GLOBALS['chemin_demo'];
   $tab_demo = scandir($chemin_demo);
   // On récupère toutes les démo et on stocke les données dans la liste $tableau_demos
   for($i = 0; $i < count($tab_demo); $i++){
@@ -443,7 +444,7 @@ function afficheDemo()
     <td>'. $demo['taille'] .'</td>
     <td>
     <fieldset class="form-group">
-    <input name="demo_coche'. $compteur .'" value="'. $chemin_demo.$demo['nom'] .'" type="checkbox">
+    <input name="demo_coche'. $compteur .'" value="'. $demo['nom'] .'" type="checkbox">
     </fieldset>
     </td>
     </td>';
@@ -457,6 +458,7 @@ function afficheDemo()
 *
 */
 function archiveDemo($demos, $connexion = false){
+  $chemin_demo = $GLOBALS['chemin_demo'];
   // Création du fichier temporaire
   $_SESSION['tmp_file'] = tempnam("tmp", "zip");
   // Création de l'archive
@@ -466,9 +468,11 @@ function archiveDemo($demos, $connexion = false){
     }
     else {
       // On stocke les démos séléctionnés dans l'archive
-      foreach($demos as $demo){
-        if($demo == "on")
+      foreach($demos as $key => $demo){
+        $demo = $chemin_demo . $demo;
+        if(($key == "connexion" || $key == "lien_demos") && $key !== 0){
           continue;
+        }
         $zip->addFile($demo, iconv('ISO-8859-1', 'IBM850', $demo));
         // Si l'user a un gros débit on ne compresse pas les fichiers
         if($connexion == "on"){
@@ -569,15 +573,41 @@ function affiche_taille($taille) {
 }
 
 /**
+ * Enregistre les noms des démos dans la variable session $_SESSION['demos']
+ *
+*/
+function enregistre_demos() {
+  // if(isset($_POST)){
+  //   echo '<div>
+  //     <a href="https://developer.mozilla.org/">MDN</a>
+  //   </div>';
+  // }
+}
+
+/**
  * Affiche le lien de téléchargement de démos
  *
  *
  * @return html
 */
 function affiche_lien_telechargement() {
+  //download_demos.php?demos%5B%5D=demo1&demos%5B%5D=demos2
+  // Si la persone a cliquer sur créer le lien de téléchargement
   if(isset($_POST['lien_demos'])){
+    // On créer l'url contenant le nom des démos en paramètre
+    $url_demo = 'download_demos.php?';
+    $cpt = 0;
+    foreach ($_POST as $key => $demo) {
+      // On ne prends que les noms des démos
+      if($key == 'connexion' || $key == 'lien_demos')
+        continue;
+
+      $url_demo .= ($cpt == 0) ? 'demos%5B%5D=' . $demo : '&demos%5B%5D=' . $demo;
+      $cpt++;
+    }
+    $url_demo .= (isset($_POST['connexion'])) ? '&connexion=on' : '';
     echo '<div>
-      <a href="https://developer.mozilla.org/">MDN</a>
+      <a href="'. $url_demo .'">'. $url_demo .'</a>
     </div>';
   }
 }
