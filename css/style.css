@@ -1,4 +1,9 @@
 /* TEMPLATE STYLES */
+/* page d'accueil */
+#home{
+  padding-top: 15%;
+}
+
 /* Agenda de léquipe */
 .event_agenda{
   color: black;
@@ -15,18 +20,33 @@
 }
 
 /*Demos*/
+.copy-paste{
+  background-color: orange;
+  margin: 0;
+  padding: 0;
+  height: 12%;
+  width: 10%;
+}
+.copied{
+  color: orange;
+	display: none;
+}
+.lien_demos{
+  background-color: white;
+  opacity: 0.6;
+}
 .text_debit{
   font-weight: bold;
 }
 .bloc_help{
-  margin-top: 20px;
+  /*margin-top: 20px;*/
   visibility: hidden;
   font-size: 12px;
   font-weight: bold;
   color: black;
   background-color: white;
   opacity: 0.6;
-  height: auto;
+  height: 20%;
 }
 .text_help{
   height: 100%;
@@ -34,8 +54,9 @@
 }
 .img_aide{
   cursor: pointer;
-  position: relative;
+  position: absolute;
   left: 90%;
+  top: 1%;
 }
 .label-cbx {
   user-select: none;
@@ -128,6 +149,7 @@
   height:500px;
   width:100%;
   overflow:auto;/*pour activer les scrollbarres*/
+  margin-top: 8%;
 }
 
 .navbar {
@@ -170,7 +192,18 @@ video#bgvid {
 .carousel,
 .carousel-item,
 .active {
-    height: 100%;
+    /*height: 100%;*/
+}
+
+.section_caption{
+  right: 15%;
+  bottom: 20px;
+  left: 15%;
+  z-index: 10;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: #fff;
+  text-align: center;
 }
 
 .carousel-inner {
@@ -183,7 +216,7 @@ video#bgvid {
 }
 
 .carousel-caption {
-    height: 100%;
+    /*height: 100%;*/
     padding-top: 7rem;
 }
 

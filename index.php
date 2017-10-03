@@ -31,7 +31,7 @@ require('texte/' . $_SESSION['lang'] .'.php');
   <link rel="icon" type="image/png" href="img/favicon.png" />
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <!-- Bootstrap core CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -49,7 +49,7 @@ require('texte/' . $_SESSION['lang'] .'.php');
 
 <body>
   <?php
-  if(isset($_POST) && !empty($_POST)){
+  if(isset($_POST) && !empty($_POST) && !isset($_POST['lien_demos'])){
     isset($_POST['connexion']) ? archiveDemo($_POST, $_POST['connexion']) : archiveDemo($_POST);
     telechargeDemo();
   }
@@ -107,7 +107,7 @@ require('texte/' . $_SESSION['lang'] .'.php');
   }
 
   echo '<a href="'.$langFr.'" title="Français"><img src="blank.gif" class="flag flag-fr" alt="France" /></a>
-      <a href="'.$langEn.'" title="English"><img src="blank.gif" class="flag flag-england" alt="English" /></a>';
+      <a href="'.$langEn.'" title="English"><img src="blank.gif" class="flag flag-gb" alt="English" /></a>';
    ?>
 </div>
 <?php
@@ -133,7 +133,7 @@ if(!isset($_SESSION['steamid'])) {
   </video>
   <!--Caption-->
   <a  name="home"></a>
-  <div class="section carousel-caption active" id="home">
+  <div class="section section_caption active" id="home">
     <div class="flex-center animated fadeInDown">
       <ul>
         <li>
@@ -203,7 +203,7 @@ if(!isset($_SESSION['steamid'])) {
 
     <!--Bootcamp-->
     <a  name="bootcamp"></a>
-    <div class="carousel-caption section" id="bootcamp">
+    <div class="section_caption section" id="bootcamp">
       <!--Intro content-->
       <div class="full-bg-img flex-center">
         <ul>
@@ -236,7 +236,7 @@ if(!isset($_SESSION['steamid'])) {
 
       <!--Demos-->
       <a  name="demos"></a>
-      <div class="carousel-caption section" id="demos">
+      <div class="section_caption section" id="demos">
         <form method="post" action="">
           <!--Intro content-->
           <div class="full-bg-img flex-center">
@@ -262,7 +262,8 @@ if(!isset($_SESSION['steamid'])) {
                 </div>
                 <div class="col">
                   <div class="cntr">
-                    <img src="img/ico_aide_bulle.png" height="24" width="24" class="img_aide">
+                    <i class="fa fa-question-circle img_aide" aria-hidden="true"></i>
+                    <!-- <img src="img/ico_aide_bulle.png" height="24" width="24" class="img_aide"> -->
                     <label for="cbx" class="label-cbx">
                       <input id="cbx" type="checkbox" name="connexion" class="invisible">
                       <div class="checkbox">
@@ -274,7 +275,10 @@ if(!isset($_SESSION['steamid'])) {
                       <span><?php echo DEBIT_CHECKBOX;?></span>
                     </label>
                   </div>
-                  <input class="btn btn-warning" type="submit" value="<?php echo DOWNLOAD_DEMO;?>">
+                  <input class="btn btn-warning" title="<?php echo CREATE_LINK;?>" name="lien_demos" value="<?php echo CREATE_LINK;?>" type="submit">
+                  <input class="btn btn-warning" type="submit" title="<?php echo DOWNLOAD_DEMO;?>" value="<?php echo DOWNLOAD_DEMO;?>">
+                  </form>
+                  <?php affiche_lien_telechargement(); ?>
                 </div>
                 <div class="col bloc_help">
                     <p class="text_help"><?php echo CHECKBOX_HELP; ?></p>
@@ -282,7 +286,6 @@ if(!isset($_SESSION['steamid'])) {
               </div>
             </div>
           </div>
-        </form>
       </div>
       <!--/.Demos-->
 
@@ -313,6 +316,9 @@ if(!isset($_SESSION['steamid'])) {
 
 
 <!-- SCRIPTS -->
+
+<!-- ClipBoardJS -->
+<script src="https://cdn.rawgit.com/zenorocha/clipboard.js/v1.7.1/dist/clipboard.min.js"></script>
 
 <!-- JQuery -->
 <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
