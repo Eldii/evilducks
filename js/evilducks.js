@@ -128,6 +128,20 @@ $('.img_aide').hover(function(){
   }
 });
 
+// Copie le lien de la demos dans le presse papier
+var clip = new Clipboard('.btn');
+
+clip.on('success', function(e) {
+    $('.copied').show();
+		$('.copied').fadeOut(1000);
+});
+
+// Evite le rechargement de la page quand on clique sur le bouton copier coller
+$('.copy-paste').click(function(e){
+  e.preventDefault();
+  return 0;
+});
+
 // Switch section
 // $("a", 'nav').not(".btn").click(function()
 // {

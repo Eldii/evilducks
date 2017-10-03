@@ -595,7 +595,7 @@ function affiche_lien_telechargement() {
   // Si la persone a cliquer sur créer le lien de téléchargement
   if(isset($_POST['lien_demos'])){
     // On créer l'url contenant le nom des démos en paramètre
-    $url_demo = 'download_demos.php?';
+    $url_demo = $_SERVER['HTTP_HOST'] .'/download_demos.php?';
     $cpt = 0;
     foreach ($_POST as $key => $demo) {
       // On ne prends que les noms des démos
@@ -606,8 +606,17 @@ function affiche_lien_telechargement() {
       $cpt++;
     }
     $url_demo .= (isset($_POST['connexion'])) ? '&connexion=on' : '';
-    echo '<div>
-      <a href="'. $url_demo .'">'. $url_demo .'</a>
-    </div>';
+    echo '<!-- Target -->
+<input id="foo" value="'. $url_demo .'">
+
+<!-- Trigger -->
+<button class="btn copy-paste" data-clipboard-target="#foo">
+  <i class="fa fa-clone" aria-hidden="true"></i>
+</button>
+<p>&nbsp;<span class="copied">Copied!</span></p>';
+    // echo '<div class="lien_demos" id="to-copy">
+    // <i class="fa fa-clipboard copy-paste" aria-hidden="true" title="'. COPY_PASTE .'"></i>
+    //   <a href="'. $url_demo .'">'. $url_demo .'</a>
+    // </div>';
   }
 }
