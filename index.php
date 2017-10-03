@@ -1,6 +1,19 @@
 <?php
+session_start();
 require("function.php");
-require ('steamauth/steamauth.php');
+//chargement de la langue
+$liste_langues=array('fr','eng');
+if (!isset($_SESSION['lang'])) {
+  $_SESSION['lang']='fr';
+}
+elseif (isset($_GET['lang']) && in_array($_GET['lang'], $liste_langues)) {
+	$previousLang = $_SESSION['lang'];
+	if($previousLang != $_GET['lang']) {
+		$_SESSION['lang']=$_GET['lang'];
+	}
+}
+require('texte/' . $_SESSION['lang'] .'.php');
+@require ('steamauth/steamauth.php');
 @unlink("demos/download_demo.zip");
 ?>
 <!DOCTYPE html>
@@ -18,13 +31,16 @@ require ('steamauth/steamauth.php');
   <link rel="icon" type="image/png" href="img/favicon.png" />
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <!-- Bootstrap core CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Material Design Bootstrap -->
   <link href="css/mdb.min.css" rel="stylesheet">
+
+  <!-- Flags Sprites -->
+  <link href="css/flags.css" rel=stylesheet type="text/css">
 
   <!-- Template styles -->
   <link href="css/style.css" rel="stylesheet">
@@ -33,7 +49,7 @@ require ('steamauth/steamauth.php');
 
 <body>
   <?php
-  if(isset($_POST) && !empty($_POST)){
+  if(isset($_POST) && !empty($_POST) && !isset($_POST['lien_demos'])){
     isset($_POST['connexion']) ? archiveDemo($_POST, $_POST['connexion']) : archiveDemo($_POST);
     telechargeDemo();
   }
@@ -52,13 +68,13 @@ require ('steamauth/steamauth.php');
       <div class="collapse navbar-collapse" id="collapseEx2">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href='#home'>Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href='#home'><?php echo HOME ?><span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href='#bootcamp'>BootCamp</a>
+            <a class="nav-link" href='#bootcamp'><?php echo BOOTCAMP ?></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href='#demos'>GOTV</a>
+            <a class="nav-link" href='#demos'><?php echo GOTV ?></a>
           </li>
           <!-- <li class="nav-item">
           <a class="nav-link" href='#agenda'>Agenda</a>
@@ -75,6 +91,25 @@ require ('steamauth/steamauth.php');
     </div>
   </li> -->
 </ul>
+<div style="color: #fff; padding-right: 1%;">
+  <?php
+  if((!isset($_GET) || trim(empty($_GET))) && (!preg_match('/\?lang=|\&lang=/i', $_SERVER['REQUEST_URI']))) { // aucun parametre dans GET
+    $langFr = $_SERVER['REQUEST_URI'].'?lang=fr';
+    $langEn = $_SERVER['REQUEST_URI'].'?lang=eng';
+  }
+  else if(trim(!empty($_GET)) && !isset($_GET['lang'])) { // il existe des parametre dans GET, mais qu'il n'y a pas GET['lang'], on l'ajoute à la suite
+    $langFr = $_SERVER['REQUEST_URI'].'&lang=fr';
+    $langEn = $_SERVER['REQUEST_URI'].'&lang=eng';
+  }
+  else { // sinon, on reconnait ?lang ou &lang dans l'url et on le modifie pour lui attribuer la bonne valeur
+    $langFr = ((preg_match('/\?lang=eng/', $_SERVER['REQUEST_URI'])) ? str_replace("?lang=eng", "?lang=fr", $_SERVER['REQUEST_URI']) : str_replace("&lang=eng", "&lang=fr", $_SERVER['REQUEST_URI'])); // lang fr
+    $langEn = ((preg_match('/\?lang=fr/', $_SERVER['REQUEST_URI'])) ? str_replace("?lang=fr", "?lang=eng", $_SERVER['REQUEST_URI']) : str_replace("&lang=fr", "&lang=eng", $_SERVER['REQUEST_URI'])); // lang fr
+  }
+
+  echo '<a href="'.$langFr.'" title="Français"><img src="blank.gif" class="flag flag-fr" alt="France" /></a>
+      <a href="'.$langEn.'" title="English"><img src="blank.gif" class="flag flag-gb" alt="English" /></a>';
+   ?>
+</div>
 <?php
 if(!isset($_SESSION['steamid'])) {
   loginbutton();
@@ -98,13 +133,13 @@ if(!isset($_SESSION['steamid'])) {
   </video>
   <!--Caption-->
   <a  name="home"></a>
-  <div class="section carousel-caption active" id="home">
+  <div class="section section_caption active" id="home">
     <div class="flex-center animated fadeInDown">
       <ul>
         <li>
-          <h1 class="h1-responsive">Evilcup : tournoi CSGO</h1></li>
+          <h1 class="h1-responsive"><?php echo TITRE_BIENVENUE?></h1></li>
           <li>
-            <p>Un tournoi réservé exclusivement au membres de la team Evilducks</p>
+            <p><?php echo COMPTEUR?></p>
           </li>
           <li>
             <div class="container compteurheures">
@@ -168,7 +203,7 @@ if(!isset($_SESSION['steamid'])) {
 
     <!--Bootcamp-->
     <a  name="bootcamp"></a>
-    <div class="carousel-caption section" id="bootcamp">
+    <div class="section_caption section" id="bootcamp">
       <!--Intro content-->
       <div class="full-bg-img flex-center">
         <ul>
@@ -178,7 +213,12 @@ if(!isset($_SESSION['steamid'])) {
             .afficheCompteurBootcamp().
             '</p>'; ?></div></li>
             <li>
-              <p>Bootcampomètre ma frend made in YetiErix</p>
+              <p>
+                <?php
+                echo BOOTCAMP_COMPTEUR;
+                echo BOOTCAMP_TEXTE;
+                ?>
+            </p>
             </li>
             <?php
             if(isset($steamprofile['steamid']) && $steamprofile['steamid'] == "76561197987841925"){
@@ -196,7 +236,7 @@ if(!isset($_SESSION['steamid'])) {
 
       <!--Demos-->
       <a  name="demos"></a>
-      <div class="carousel-caption section" id="demos">
+      <div class="section_caption section" id="demos">
         <form method="post" action="">
           <!--Intro content-->
           <div class="full-bg-img flex-center">
@@ -206,9 +246,9 @@ if(!isset($_SESSION['steamid'])) {
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Nom</th>
-                      <th>Date (d/m/Y)</th>
-                      <th>Taille</th>
+                      <th><?php echo NOM;?></th>
+                      <th><?php echo DATE;?></th>
+                      <th><?php echo TAILLE;?></th>
                       <th></th>
                     </tr>
                   </thead>
@@ -221,20 +261,31 @@ if(!isset($_SESSION['steamid'])) {
                 <div class="col">
                 </div>
                 <div class="col">
-                  <div class="funkyradio">
-                    <div class="funkyradio-warning">
-                      <input type="checkbox" name="connexion" id="radio5" />
-                      <label for="radio5">Si votre débit est bon cliquez sur cette checkbox</label>
-                    </div>
+                  <div class="cntr">
+                    <i class="fa fa-question-circle img_aide" aria-hidden="true"></i>
+                    <!-- <img src="img/ico_aide_bulle.png" height="24" width="24" class="img_aide"> -->
+                    <label for="cbx" class="label-cbx">
+                      <input id="cbx" type="checkbox" name="connexion" class="invisible">
+                      <div class="checkbox">
+                        <svg width="20px" height="20px" viewBox="0 0 20 20">
+                          <path d="M3,1 L17,1 L17,1 C18.1045695,1 19,1.8954305 19,3 L19,17 L19,17 C19,18.1045695 18.1045695,19 17,19 L3,19 L3,19 C1.8954305,19 1,18.1045695 1,17 L1,3 L1,3 C1,1.8954305 1.8954305,1 3,1 Z"></path>
+                          <polyline points="4 11 8 15 16 6"></polyline>
+                        </svg>
+                      </div>
+                      <span><?php echo DEBIT_CHECKBOX;?></span>
+                    </label>
                   </div>
-                  <input class="btn btn-warning" type="submit" value="Télécharger les démos">
+                  <input class="btn btn-warning" title="<?php echo CREATE_LINK;?>" name="lien_demos" value="<?php echo CREATE_LINK;?>" type="submit">
+                  <input class="btn btn-warning" type="submit" title="<?php echo DOWNLOAD_DEMO;?>" value="<?php echo DOWNLOAD_DEMO;?>">
+                  </form>
+                  <?php affiche_lien_telechargement(); ?>
                 </div>
-                <div class="col">
+                <div class="col bloc_help">
+                    <p class="text_help"><?php echo CHECKBOX_HELP; ?></p>
                 </div>
               </div>
             </div>
           </div>
-        </form>
       </div>
       <!--/.Demos-->
 
@@ -265,6 +316,9 @@ if(!isset($_SESSION['steamid'])) {
 
 
 <!-- SCRIPTS -->
+
+<!-- ClipBoardJS -->
+<script src="https://cdn.rawgit.com/zenorocha/clipboard.js/v1.7.1/dist/clipboard.min.js"></script>
 
 <!-- JQuery -->
 <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>

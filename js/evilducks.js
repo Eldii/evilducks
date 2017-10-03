@@ -103,6 +103,45 @@ $(".decremente").click(function()
   }
 });
 
+// Séléctionne la checkbox quand on clique sur une ligne du tableau des démos
+$('.table_demos tr').click(function(e){
+  // Checkbox à cocher ou à décocher
+  var input = $(this).children('td').children('.form-group').children('input');
+  var element = e.target||event.srcElement;
+  if(element.name !== input.attr('name')){
+    // Si la checkbox est déjà coché on la décoche
+    if(input.is(':checked')){
+      input.prop('checked', false);
+    }
+    else{ // Sinon on la coche
+      input.prop('checked', true);
+    }
+  }
+});
+
+// affiche la div d'aide quand on passe la souris sur le logo de l'aide (page demos)
+$('.img_aide').hover(function(){
+  if($(".bloc_help").css('visibility') == "hidden"){
+      $(".bloc_help").css('visibility', 'visible');
+  }else{
+      $(".bloc_help").css('visibility', 'hidden');
+  }
+});
+
+// Copie le lien de la demos dans le presse papier
+var clip = new Clipboard('.btn');
+
+clip.on('success', function(e) {
+    $('.copied').show();
+		$('.copied').fadeOut(1000);
+});
+
+// Evite le rechargement de la page quand on clique sur le bouton copier coller
+$('.copy-paste').click(function(e){
+  e.preventDefault();
+  return 0;
+});
+
 // Switch section
 // $("a", 'nav').not(".btn").click(function()
 // {

@@ -1,4 +1,9 @@
 /* TEMPLATE STYLES */
+/* page d'accueil */
+#home{
+  padding-top: 15%;
+}
+
 /* Agenda de léquipe */
 .event_agenda{
   color: black;
@@ -15,6 +20,118 @@
 }
 
 /*Demos*/
+.copy-paste{
+  background-color: orange;
+  margin: 0;
+  padding: 0;
+  height: 12%;
+  width: 10%;
+}
+.copied{
+  color: orange;
+	display: none;
+}
+.lien_demos{
+  background-color: white;
+  opacity: 0.6;
+}
+.text_debit{
+  font-weight: bold;
+}
+.bloc_help{
+  /*margin-top: 20px;*/
+  visibility: hidden;
+  font-size: 12px;
+  font-weight: bold;
+  color: black;
+  background-color: white;
+  opacity: 0.6;
+  height: 20%;
+}
+.text_help{
+  height: 100%;
+  size: 100%;
+}
+.img_aide{
+  cursor: pointer;
+  position: absolute;
+  left: 90%;
+  top: 1%;
+}
+.label-cbx {
+  user-select: none;
+  cursor: pointer;
+  margin-bottom: 0;
+}
+.label-cbx input:checked + .checkbox {
+  border-color: #F80;
+}
+.label-cbx input:checked + .checkbox svg path {
+  fill: #F80;
+}
+.label-cbx input:checked + .checkbox svg polyline {
+  stroke-dashoffset: 0;
+}
+.label-cbx:hover .checkbox svg path {
+  stroke-dashoffset: 0;
+}
+.label-cbx .checkbox {
+  position: relative;
+  top: 2px;
+  float: left;
+  margin-right: 8px;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #C8CCD4;
+  border-radius: 3px;
+}
+.label-cbx .checkbox svg {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+}
+.label-cbx .checkbox svg path {
+  fill: none;
+  stroke: #F80;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 71px;
+  stroke-dashoffset: 71px;
+  transition: all 0.6s ease;
+}
+.label-cbx .checkbox svg polyline {
+  fill: none;
+  stroke: #FFF;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 18px;
+  stroke-dashoffset: 18px;
+  transition: all 0.3s ease;
+}
+.label-cbx > span {
+  pointer-events: none;
+  vertical-align: middle;
+}
+
+.cntr {
+  /*position: absolute;*/
+  margin-top: 20px;
+  top: 45%;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.invisible {
+  position: absolute;
+  z-index: -1;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
 .table_demos{
   color: black;
   background-color: white;
@@ -22,109 +139,9 @@
   opacity: 0.8;
 }
 
-.funkyradio div {
-  clear: both;
-  overflow: hidden;
-}
-
-.funkyradio label {
-  width: 100%;
-  border-radius: 3px;
-  font-weight: normal;
-  background-color: #F80;
-}
-
-.funkyradio input[type="radio"]:empty,
-.funkyradio input[type="checkbox"]:empty {
-  display: none;
-}
-
-.funkyradio input[type="radio"]:empty ~ label,
-.funkyradio input[type="checkbox"]:empty ~ label {
-  position: relative;
-  line-height: 2.5em;
-  text-indent: 3.25em;
-  margin-top: 2em;
-  cursor: pointer;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-}
-
-.funkyradio input[type="radio"]:empty ~ label:before,
-.funkyradio input[type="checkbox"]:empty ~ label:before {
-  position: absolute;
-  display: block;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  content: '';
-  width: 2.5em;
-  background: #D1D3D4;
-  border-radius: 3px 0 0 3px;
-}
-
-.funkyradio input[type="radio"]:hover:not(:checked) ~ label:before,
-.funkyradio input[type="checkbox"]:hover:not(:checked) ~ label:before {
-  content: '\2714';
-  text-indent: .9em;
-  color: #C2C2C2;
-}
-
-.funkyradio input[type="radio"]:checked ~ label:before,
-.funkyradio input[type="checkbox"]:checked ~ label:before {
-  content: '\2714';
-  text-indent: .9em;
-  color: #333;
-  background-color: #ccc;
-}
-
-.funkyradio input[type="radio"]:focus ~ label:before,
-.funkyradio input[type="checkbox"]:focus ~ label:before {
-  box-shadow: 0 0 0 3px #999;
-}
-
-.funkyradio-default input[type="radio"]:checked ~ label:before,
-.funkyradio-default input[type="checkbox"]:checked ~ label:before {
-  color: #333;
-  background-color: #ccc;
-}
-
-.funkyradio-primary input[type="radio"]:checked ~ label:before,
-.funkyradio-primary input[type="checkbox"]:checked ~ label:before {
-  color: #fff;
-  background-color: #337ab7;
-}
-
-.funkyradio-success input[type="radio"]:checked ~ label:before,
-.funkyradio-success input[type="checkbox"]:checked ~ label:before {
-  color: #fff;
-  background-color: #5cb85c;
-}
-
-.funkyradio-danger input[type="radio"]:checked ~ label:before,
-.funkyradio-danger input[type="checkbox"]:checked ~ label:before {
-  color: #fff;
-  background-color: #d9534f;
-}
-
-.funkyradio-warning input[type="radio"]:checked ~ label:before,
-.funkyradio-warning input[type="checkbox"]:checked ~ label:before {
-  color: #fff;
-  background-color: #f0ad4e;
-}
-
-.funkyradio-info input[type="radio"]:checked ~ label:before,
-.funkyradio-info input[type="checkbox"]:checked ~ label:before {
-  color: #fff;
-  background-color: #5bc0de;
-}
-
-
-.bdl{
+/*.bdl{
   margin-top: 40%;
-}
+}*/
 
 /* Navigation*/
 
@@ -132,6 +149,7 @@
   height:500px;
   width:100%;
   overflow:auto;/*pour activer les scrollbarres*/
+  margin-top: 8%;
 }
 
 .navbar {
@@ -174,7 +192,18 @@ video#bgvid {
 .carousel,
 .carousel-item,
 .active {
-    height: 100%;
+    /*height: 100%;*/
+}
+
+.section_caption{
+  right: 15%;
+  bottom: 20px;
+  left: 15%;
+  z-index: 10;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: #fff;
+  text-align: center;
 }
 
 .carousel-inner {
@@ -187,7 +216,7 @@ video#bgvid {
 }
 
 .carousel-caption {
-    height: 100%;
+    /*height: 100%;*/
     padding-top: 7rem;
 }
 
