@@ -1,20 +1,5 @@
 <?php
-session_start();
-require("function.php");
-//chargement de la langue
-$liste_langues=array('fr','eng');
-if (!isset($_SESSION['lang'])) {
-  $_SESSION['lang']='fr';
-}
-elseif (isset($_GET['lang']) && in_array($_GET['lang'], $liste_langues)) {
-	$previousLang = $_SESSION['lang'];
-	if($previousLang != $_GET['lang']) {
-		$_SESSION['lang']=$_GET['lang'];
-	}
-}
-require('texte/' . $_SESSION['lang'] .'.php');
-@require ('steamauth/steamauth.php');
-@unlink("demos/download_demo.zip");
+    require ('steamauth/steamauth.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,322 +7,397 @@ require('texte/' . $_SESSION['lang'] .'.php');
 <head>
 
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
   <title>Evilducks Team - Quack !</title>
 
+
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="img/favicon.png" />
+  <link rel="icon" type="image/jpg" href="img/favicon.jpg" />
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-  <!-- Bootstrap core CSS -->
+  <!-- Bootstrap Core CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Material Design Bootstrap -->
-  <link href="css/mdb.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link href="css/landing-page.css" rel="stylesheet">
 
-  <!-- Flags Sprites -->
-  <link href="css/flags.css" rel=stylesheet type="text/css">
+  <!-- Custom Fonts -->
+  <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
-  <!-- Template styles -->
-  <link href="css/style.css" rel="stylesheet">
+  <!-- Bootstrap Core JavaScript -->
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/accueil.js"></script>
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
 
 </head>
 
 <body>
   <?php
-  if(isset($_POST) && !empty($_POST) && !isset($_POST['lien_demos'])){
-    isset($_POST['connexion']) ? archiveDemo($_POST, $_POST['connexion']) : archiveDemo($_POST);
-    telechargeDemo();
-  }
+  require("function.php");
   ?>
 
-
-  <!--Navbar-->
-  <nav class="navbar navbar-toggleable-md navbar-dark scrolling-navbar fixed-top">
-    <div class="container">
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapseEx2" aria-controls="collapseEx2" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <a class="navbar-brand" href="#home">
-        <img src="img/evilducks.png" class="d-inline-block align-top z-depth-0 logo" alt="Evilducks">
-      </a>
-      <div class="collapse navbar-collapse" id="collapseEx2">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href='#home'><?php echo HOME ?><span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href='#bootcamp'><?php echo BOOTCAMP ?></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href='#demos'><?php echo GOTV ?></a>
-          </li>
-          <!-- <li class="nav-item">
-          <a class="nav-link" href='#agenda'>Agenda</a>
-        </li> -->
-        <!-- <li class="nav-item">
-        <a class="nav-link">Pricing</a>
-      </li>
-      <li class="nav-item btn-group">
-      <a class="nav-link dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-      <a class="dropdown-item">Action</a>
-      <a class="dropdown-item">Another action</a>
-      <a class="dropdown-item">Something else here</a>
-    </div>
-  </li> -->
-</ul>
-<div style="color: #fff; padding-right: 1%;">
-  <?php
-  if((!isset($_GET) || trim(empty($_GET))) && (!preg_match('/\?lang=|\&lang=/i', $_SERVER['REQUEST_URI']))) { // aucun parametre dans GET
-    $langFr = $_SERVER['REQUEST_URI'].'?lang=fr';
-    $langEn = $_SERVER['REQUEST_URI'].'?lang=eng';
-  }
-  else if(trim(!empty($_GET)) && !isset($_GET['lang'])) { // il existe des parametre dans GET, mais qu'il n'y a pas GET['lang'], on l'ajoute à la suite
-    $langFr = $_SERVER['REQUEST_URI'].'&lang=fr';
-    $langEn = $_SERVER['REQUEST_URI'].'&lang=eng';
-  }
-  else { // sinon, on reconnait ?lang ou &lang dans l'url et on le modifie pour lui attribuer la bonne valeur
-    $langFr = ((preg_match('/\?lang=eng/', $_SERVER['REQUEST_URI'])) ? str_replace("?lang=eng", "?lang=fr", $_SERVER['REQUEST_URI']) : str_replace("&lang=eng", "&lang=fr", $_SERVER['REQUEST_URI'])); // lang fr
-    $langEn = ((preg_match('/\?lang=fr/', $_SERVER['REQUEST_URI'])) ? str_replace("?lang=fr", "?lang=eng", $_SERVER['REQUEST_URI']) : str_replace("&lang=fr", "&lang=eng", $_SERVER['REQUEST_URI'])); // lang fr
-  }
-
-  echo '<a href="'.$langFr.'" title="Français"><img src="blank.gif" class="flag flag-fr" alt="France" /></a>
-      <a href="'.$langEn.'" title="English"><img src="blank.gif" class="flag flag-gb" alt="English" /></a>';
-   ?>
-</div>
-<?php
-if(!isset($_SESSION['steamid'])) {
-  loginbutton();
-}  else {
-  include ('steamauth/userInfo.php');
-  // print_r('<p class="nav-link">');
-  // print_r($steamprofile);
-  // print_r('</p>');
-  echo '<div style="color: #fff; padding-right: 1%;">';
-  echo '<img src="' . $steamprofile['avatar'] . '" alt="' . $steamprofile['personaname'] . '">';
-  echo 'Quack ! ' . $steamprofile['personaname'] . '</div>';
-  logoutbutton();
-}?>
-</div>
-</div>
-</nav>
-<!--/.Navbar-->
-
-<video autoplay loop id="bgvid">
-  <source src="img/background.mp4" type="video/mp4">
-  </video>
-  <!--Caption-->
-  <a  name="home"></a>
-  <div class="section section_caption active" id="home">
-    <div class="flex-center animated fadeInDown">
-      <ul>
-        <li>
-          <h1 class="h1-responsive"><?php echo TITRE_BIENVENUE?></h1></li>
+  <!-- Navigation -->
+  <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+    <div class="container topnav">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand topnav" href="#">Evilducks</a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
           <li>
-            <p><?php echo COMPTEUR?></p>
+            <a href="#regles">Règles</a>
           </li>
           <li>
-            <div class="container compteurheures">
-
-              <div class="row">
-                <?php
-                $tempsdejeu = tempsdejeu();
-                $premiereCle = current($tempsdejeu);
-                end($tempsdejeu);
-                $derniereCle = key($tempsdejeu);
-                foreach ($tempsdejeu as $pseudo => $hours) {
-                  if ($pseudo == $derniereCle) {
-                    echo '
-                    <div class="col-lg-2 col-sm-2 col-xs-1 compteur">
-                    <h2 class="pseudo">'.$pseudo.'</h2>
-                    <div class="lastcircle">
-                    <p class="heures">'
-                    .$hours.
-                    '</p><br /> <br /> <br />
-                    <p class="heurestexte"> Heures </p>
-                    </div>
-                    </div>';
-                  } elseif ($hours == $premiereCle) {
-                    echo '
-                    <div class="col-lg-2 col-sm-2 col-xs-1 compteur">
-                    <h2 class="pseudo">'.$pseudo.'</h2>
-                    <div class="firstcircle">
-                    <p class="heures">'
-                    .$hours.
-                    '</p><br /> <br /> <br />
-                    <p class="heurestexte"> Heures </p>
-                    </div>
-                    </div>';
-                  } else {
-                    echo '
-                    <div class="col-lg-2 col-sm-2 col-xs-1 compteur">
-                    <h2 class="pseudo">'.$pseudo.'</h2>
-                    <div class="circle multi-line">
-                    <p class="heures">'
-                    .$hours.
-                    '</p><br /> <br /> <br />
-                    <p class="heurestexte"> Heures </p>
-                    </div>
-                    </div>';
-                  }
-                }
-                ?>
-              </div>
-            </div>
+            <a href="#recompenses">Récompense</a>
           </li>
           <li>
-            <a href="https://github.com/Eldii/Evilducks/" class="btn github waves-effect"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
-            <!-- <a href="" class="btn btn-primary btn-lg">Sign up!</a> -->
-            <!-- <a target="_blank" href="https://mdbootstrap.com/material-design-for-bootstrap/" class="btn btn-default btn-lg">Learn more</a> -->
+            <a href="#resultats">Résultats et Classement</a>
+          </li>
+          <li><?php
+            if(!isset($_SESSION['steamid'])) {
+                loginbutton();
+            	echo "</div>";
+            	}  else {
+                include ('steamauth/userInfo.php');
+                echo $steamprofile['personaname'];
+              }?>
           </li>
         </ul>
       </div>
+      <!-- /.navbar-collapse -->
     </div>
-    <!--Caption-->
+    <!-- /.container -->
+  </nav>
 
-
-    <!--Bootcamp-->
-    <a  name="bootcamp"></a>
-    <div class="section_caption section" id="bootcamp">
-      <!--Intro content-->
-      <div class="full-bg-img flex-center">
-        <ul>
-          <li>
-            <div><?php  echo '
-            <p class="compteur_bootcamp">'
-            .afficheCompteurBootcamp().
-            '</p>'; ?></div></li>
-            <li>
-              <p>
-                <?php
-                echo BOOTCAMP_COMPTEUR;
-                echo BOOTCAMP_TEXTE;
-                ?>
-            </p>
-            </li>
-            <?php
-            if(isset($steamprofile['steamid']) && $steamprofile['steamid'] == "76561197987841925"){
-              echo '<li>
-              <button href="" class="btn btn-primary btn-lg incremente">Incrémenter</button>
-              <button href="" class="btn btn-default btn-lg decremente">Décrémenter</button>
-              </li>';
-            }
-            ?>
-          </ul>
-        </div>
-        <!--/Intro content-->
-      </div>
-      <!--/.Bootcamp-->
-
-      <!--Demos-->
-      <a  name="demos"></a>
-      <div class="section_caption section" id="demos">
-        <form method="post" action="">
-          <!--Intro content-->
-          <div class="full-bg-img flex-center">
-            <div class="container">
-              <div class="row table_dl">
-                <table class="table table_demos" style="text-align: left;">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th><?php echo NOM;?></th>
-                      <th><?php echo DATE;?></th>
-                      <th><?php echo TAILLE;?></th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php echo afficheDemo(); ?>
-                  </tbody>
-                </table>
-              </div>
-              <div class="row">
-                <div class="col">
-                </div>
-                <div class="col">
-                  <div class="cntr">
-                    <i class="fa fa-question-circle img_aide" aria-hidden="true"></i>
-                    <!-- <img src="img/ico_aide_bulle.png" height="24" width="24" class="img_aide"> -->
-                    <label for="cbx" class="label-cbx">
-                      <input id="cbx" type="checkbox" name="connexion" class="invisible">
-                      <div class="checkbox">
-                        <svg width="20px" height="20px" viewBox="0 0 20 20">
-                          <path d="M3,1 L17,1 L17,1 C18.1045695,1 19,1.8954305 19,3 L19,17 L19,17 C19,18.1045695 18.1045695,19 17,19 L3,19 L3,19 C1.8954305,19 1,18.1045695 1,17 L1,3 L1,3 C1,1.8954305 1.8954305,1 3,1 Z"></path>
-                          <polyline points="4 11 8 15 16 6"></polyline>
-                        </svg>
-                      </div>
-                      <span><?php echo DEBIT_CHECKBOX;?></span>
-                    </label>
+  <!-- Header -->
+  <div class="intro-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="intro-message">
+            <h1>Tournoi CSGO</h1>
+            <h3>Un tournoi réservé exclusivement au membres de la team Evilducks</h3>
+            <hr class="intro-divider">
+            <ul class="list-inline intro-social-buttons">
+              <li>
+                <a href="https://github.com/Eldii/Evilducks/" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+              </li>
+            </ul>
+            <div class="box">
+              <a class="button" data-toggle="modal" data-target="#squarespaceModal">Nouveau match</a>
+            </div>
+            <div class="modal fade" id="squarespaceModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title" id="lineModalLabel">Rentrez un nouveau résultat</h3>
                   </div>
-                  <input class="btn btn-warning" title="<?php echo CREATE_LINK;?>" name="lien_demos" value="<?php echo CREATE_LINK;?>" type="submit">
-                  <input class="btn btn-warning" type="submit" title="<?php echo DOWNLOAD_DEMO;?>" value="<?php echo DOWNLOAD_DEMO;?>">
-                  </form>
-                  <?php affiche_lien_telechargement(); ?>
-                </div>
-                <div class="col bloc_help">
-                    <p class="text_help"><?php echo CHECKBOX_HELP; ?></p>
+                  <div class="modal-body">
+
+                    <!-- content goes here -->
+                    <form action="traitement_match.php" method="post">
+                      <div class="form-group">
+                        <label for="joueur1">Joueur 1:</label>
+                        <?php
+                        $pseudos = recupPseudoPickList('joueur1');
+                        echo $pseudos;
+                        ?>
+                      </div>
+                      <div class="form-group">
+                        <label for="joueur2">Joueur 2:</label>
+                        <?php
+                        $pseudos = recupPseudoPickList('joueur2');
+                        echo $pseudos;
+                        ?>
+                      </div>
+                      <div class="form-group">
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-lg-2 col-sm-3">
+                          <label class="libellemap">Map 1 :</label>
+                              <input type="text" class="form-control score" style="display:inline;" name="scoremap1j1" id="scorejoueur1" placeholder="16" required>
+                              <input type="text" class="form-control score" style="display:inline;" name="scoremap1j2" id="scorejoueur1" placeholder="0" required>
+                              <br/>
+                              <br/>
+                              <?php echo recupMapPickList("aim") ?>
+                            </div>
+                            <div class="col-lg-2 col-sm-3">
+                          <label class="libellemap">Map 2 :</label>
+                              <input type="text" class="form-control score" style="display:inline;" name="scoremap2j1" id="scorejoueur1" placeholder="16" required>
+                              <input type="text" class="form-control score" style="display:inline;" name="scoremap2j2" id="scorejoueur1" placeholder="0" required>
+                              <br/>
+                              <br/>
+                              <?php echo recupMapPickList("awp") ?>
+                            </div>
+                              <div class="col-lg-2 col-sm-3">
+                          <label class="libellemap">Map 3 :</label>
+                              <input type="text" class="form-control score" style="display:inline;" name="scoremap3j1" id="scorejoueur1" placeholder="0">
+                              <input type="text" class="form-control score" style="display:inline;" name="scoremap3j2" id="scorejoueur1" placeholder="0">
+                              <br/>
+                              <br/>
+                              <?php echo recupMapPickList("pistol") ?>
+                            </div>
+                            </div>
+                        </div>
+                      </div>
+                      <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-      </div>
-      <!--/.Demos-->
-
-      <!--Agenda-->
-      <!-- <a  name="agenda"></a>
-      <div class="carousel-caption section container" id="agenda">
-      <div class="row" style="height: 90%; padding-top: 10%;">
-      <div class="col-md-3 event_agenda">
-      <p>Event : Bootcamp
-      <hr>
-      Date : Bootcamp
-      <hr>
-      Time : Bootcamp
-      <hr>
-      Description : Bootcamp </p>
+            <!-- <ul class="list-inline intro-social-buttons">
+            <li>
+            <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+          </li>
+          <li>
+          <a href="#" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
+        </li>
+      </ul> -->
     </div>
-    <div class="col-md-1"> </div>
-    <div class="col-md-3 event_agenda">
-    test
   </div>
-  <div class="col-md-1"> </div>
-  <div class="col-md-3 event_agenda">
-  test
 </div>
+
 </div>
-</div> -->
-<!--/.Agenda-->
+<!-- /.container -->
 
+</div>
+<!-- /.intro-header -->
 
-<!-- SCRIPTS -->
+<!-- Page Content -->
 
-<!-- ClipBoardJS -->
-<script src="https://cdn.rawgit.com/zenorocha/clipboard.js/v1.7.1/dist/clipboard.min.js"></script>
+<a  name="regles"></a>
+<div class="content-section-a">
 
-<!-- JQuery -->
-<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5 col-sm-6">
+        <hr class="section-heading-spacer">
+        <div class="clearfix"></div>
+        <h2 class="section-heading">Les règles</h2>
+        <p class="lead">Les règles du jeu sont très simple le but est de gagner le plus de match contre l'ensemble des joueurs de l'équipe. <br/>Chaque semaine les joueurs de la team des vilains canards (Coach et last compris) s'inscrivent au tournoi sur le site. <br/> Les matchs sont définis par des BO3 (Aim map, Awp Map et Pistol Map). Le gagnant du BO3 remporte 3 points dans le classement. <br/><br/>Arrangez vous comme vous voulez pour jouer ces matchs, le mieux serait de les faire avant les matchs de 21h pour être bien chaud le soir par exemple.</p>
+      </div>
+      <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+        <img class="img-responsive" src="img/rules.png" alt="">
+      </div>
+    </div>
 
-<!-- Bootstrap tooltips -->
-<script type="text/javascript" src="js/tether.min.js"></script>
+  </div>
+  <!-- /.container -->
 
-<!-- Bootstrap core JavaScript -->
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
+</div>
+<!-- /.content-section-a -->
 
-<!-- MDB core JavaScript -->
-<script type="text/javascript" src="js/mdb.min.js"></script>
+<a  name="recompenses"></a>
+<div class="content-section-b">
 
-<!-- script evilducks JavaScript -->
-<script type="text/javascript" src="js/evilducks.js"></script>
+  <div class="container">
 
-<!-- JsCookie JavaScript -->
-<script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <div class="row">
+      <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+        <hr class="section-heading-spacer">
+        <div class="clearfix"></div>
+        <h2 class="section-heading">La récompense</h2>
+        <p class="lead">Le premier du classement gagne le droit de ne pas seek de toute la semaine. Les récompenses évolueront au fur et à mesure si je/on trouve des meilleures idées :D.</p>
+      </div>
+      <div class="col-lg-5 col-sm-pull-6  col-sm-6">
+        <img class="img-responsive" src="img/recompense.png" alt="">
+      </div>
+    </div>
 
+  </div>
+  <!-- /.container -->
+
+</div>
+<!-- /.content-section-b -->
+<a  name="resultats"></a>
+<div class="content-section-a">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5 col-sm-6">
+        <hr class="section-heading-spacer">
+        <div class="clearfix"></div>
+        <h2 class="section-heading">Matchs de la semaine</h2>
+        <div class="panel panel-primary">
+					<div class="panel-heading">
+            <br/>
+						<div class="pull-right">
+							<span class="clickable filter" data-toggle="tooltip" title="Toggle table filter" data-container="body">
+								<i class="glyphicon glyphicon-filter"></i>
+							</span>
+						</div>
+					</div>
+          <div class="panel-body">
+						<input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Chercher un joueur" />
+					</div>
+          <?php
+          $rankings = ranking();
+          $matchsjoue = 0;
+          foreach($rankings as $pseudo => $score){
+                if($score == -1){
+                  $matchsjoue++;
+                }
+          }
+          if($matchsjoue == count($rankings)){
+            echo "<p> Aucun match n'a été joué </p>";
+          }else{
+            echo'
+            <table class="table table-hover" id="dev-table">
+  						<thead>
+  							<tr>
+  								<th>Pseudo1</th>
+  								<th>Score</th>
+  								<th>Pseudo2</th>
+  							</tr>
+  						</thead>
+              <tbody>'.
+                resultatsMatchs()
+              .'</tbody>
+  					</table>
+            ';
+            // echo '<table class="table">
+            //   <thead>
+            //     <tr>
+            //       <th>Pseudo1</th>
+            //       <th>Pseudo2</th>
+            //       <th>Score</th>
+            //     </tr>
+            //   </thead>
+            //   <tbody>'.
+            //     resultatsMatchs()
+            //   .'</tbody>
+            // </table>';
+          }
+            ?>
+				</div>
+      </div>
+      <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+        <hr class="section-heading-spacer">
+        <div class="clearfix"></div>
+        <h2 class="section-heading">Classement général</h2>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Pseudo</th>
+              <th>Points</th
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              afficherClassement();
+              ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <div class="content-section-c">
+    <h1 style="text-align: center;"> Nombre d'heures joués les 15 derniers jours (noob shaming au dernier) </h1>
+
+    <div class="container">
+
+      <div class="row">
+        <?php
+        $tempsdejeu = tempsdejeu();
+        $premiereCle = current($tempsdejeu);
+        end($tempsdejeu);
+        $derniereCle = key($tempsdejeu);
+        foreach ($tempsdejeu as $pseudo => $hours) {
+          if ($pseudo == $derniereCle) {
+            echo '
+            <div class="col-lg-2 col-sm-6 compteur">
+            <h2 class="pseudo">'.$pseudo.'</h2>
+            <div class="lastcircle">
+            <p class="heures">'
+            .$hours.
+            '</p><br /> <br /> <br />
+            <p class="heurestexte"> Heures </p>
+            </div>
+            </div>';
+          } elseif ($hours == $premiereCle) {
+            echo '
+            <div class="col-lg-2 col-sm-6 compteur">
+            <h2 class="pseudo">'.$pseudo.'</h2>
+            <div class="firstcircle">
+            <p class="heures">'
+            .$hours.
+            '</p><br /> <br /> <br />
+            <p class="heurestexte"> Heures </p>
+            </div>
+            </div>';
+          } else {
+            echo '
+            <div class="col-lg-2 col-sm-6 compteur">
+            <h2 class="pseudo">'.$pseudo.'</h2>
+            <div class="circle multi-line">
+            <p class="heures">'
+            .$hours.
+            '</p><br /> <br /> <br />
+            <p class="heurestexte"> Heures </p>
+            </div>
+            </div>';
+          }
+        }
+        ?>
+      </div>
+    </div>
+    <!-- /.container -->
+
+  </div>
+  <!-- /.content-section-a -->
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <ul class="list-inline">
+            <li>
+              <a href="#">Home</a>
+            </li>
+            <li class="footer-menu-divider">&sdot;</li>
+            <li>
+              <a href="#regles">Règles</a>
+            </li>
+            <li class="footer-menu-divider">&sdot;</li>
+            <li>
+              <a href="#recompense">Récompense</a>
+            </li>
+            <li class="footer-menu-divider">&sdot;</li>
+            <li>
+              <a href="#resultats">Résultats et Classement</a>
+            </li>
+          </ul>
+          <p class="copyright text-muted small">Copyright &copy; Evilducks 2017. All Rights Reserved</p>
+        </div>
+      </div>
+    </div>
+  </footer>
 
 </body>
 
