@@ -595,7 +595,7 @@ function affiche_lien_telechargement() {
   // Si la persone a cliquer sur créer le lien de téléchargement
   if(isset($_POST['lien_demos'])){
     // On créer l'url contenant le nom des démos en paramètre
-    $url_demo = $_SERVER['HTTP_HOST'] .'/download_demos.php?';
+    $url_demo = 'https://' . $_SERVER['HTTP_HOST'] .'/download_demos.php?';
     $cpt = 0;
     foreach ($_POST as $key => $demo) {
       // On ne prends que les noms des démos
